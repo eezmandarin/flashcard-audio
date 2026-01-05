@@ -1,297 +1,93 @@
-{\rtf1\ansi\ansicpg936\cocoartf2758
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
-
-\f0\fs24 \cf0 <!DOCTYPE html>\
-<html lang="zh-CN">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\
-    <title>\uc0\u20799 \u31461 \u20013 \u25991 \u38378 \u21345 \u38899 \u39057 \u24211 </title>\
-    <style>\
-        /* --- \uc0\u26680 \u24515 \u37197 \u33394 \u21464 \u37327  --- */\
-        :root \{\
-            --bg-paper: #fdfbf7;      /* \uc0\u31859 \u33394 \u23459 \u32440 \u32972 \u26223  */\
-            --color-person: #0cc0df;  /* \uc0\u20154 \u29289 \u38738 \u34013  */\
-            --color-place: #ffde59;   /* \uc0\u22320 \u28857 \u26126 \u40644  */\
-            --color-action: #ff6b6b;  /* \uc0\u21160 \u20316 \u35199 \u29916 \u32418  */\
-            --text-main: #4a4a4a;     /* \uc0\u28145 \u28784 \u25991 \u23383 \u65292 \u27604 \u32431 \u40657 \u26356 \u26580 \u21644  */\
-        \}\
-\
-        /* --- \uc0\u20840 \u23616 \u26679 \u24335  --- */\
-        body \{\
-            background-color: var(--bg-paper);\
-            font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;\
-            margin: 0;\
-            padding: 0;\
-            color: var(--text-main);\
-            /* \uc0\u38450 \u27490 \u28857 \u20987 \u39640 \u20142 \u32972 \u26223  */\
-            -webkit-tap-highlight-color: transparent; \
-        \}\
-\
-        h1 \{ text-align: center; margin: 20px 0 10px; font-size: 1.2rem; opacity: 0.8; \}\
-        \
-        /* --- \uc0\u39030 \u37096 \u23548 \u33322 \u26631 \u31614  (Tabs) --- */\
-        .nav-tabs \{\
-            display: flex;\
-            justify-content: center;\
-            gap: 10px;\
-            padding: 10px 15px;\
-            position: sticky;\
-            top: 0;\
-            background: rgba(253, 251, 247, 0.95); /* \uc0\u21322 \u36879 \u26126 \u32972 \u26223 \u38450 \u36974 \u25377  */\
-            z-index: 100;\
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);\
-        \}\
-\
-        .tab-btn \{\
-            flex: 1;\
-            padding: 12px 0;\
-            border: none;\
-            background: #eee;\
-            border-radius: 15px 15px 5px 5px; /* \uc0\u19978 \u22278 \u19979 \u30452  */\
-            font-size: 1rem;\
-            font-weight: bold;\
-            color: #888;\
-            cursor: pointer;\
-            transition: all 0.2s ease;\
-        \}\
-\
-        /* \uc0\u36873 \u20013 \u29366 \u24577 \u30340 \u26679 \u24335  - \u23545 \u24212 \u19981 \u21516 \u39068 \u33394  */\
-        .tab-btn.active[data-type="person"] \{ background: var(--color-person); color: white; transform: scale(1.05); \}\
-        .tab-btn.active[data-type="place"] \{ background: var(--color-place); color: #5a4a00; transform: scale(1.05); \}\
-        .tab-btn.active[data-type="action"] \{ background: var(--color-action); color: white; transform: scale(1.05); \}\
-\
-        /* --- \uc0\u20869 \u23481 \u21306 \u22495  --- */\
-        .content-area \{\
-            padding: 20px 15px 60px; /* \uc0\u24213 \u37096 \u30041 \u30333  */\
-            max-width: 600px;\
-            margin: 0 auto;\
-        \}\
-\
-        /* \uc0\u38544 \u34255 \u38750 \u24403 \u21069 Tab\u30340 \u20869 \u23481  */\
-        .category-section \{ display: none; animation: fadeIn 0.3s ease; \}\
-        .category-section.active \{ display: block; \}\
-\
-        /* \uc0\u20998 \u20876 \u26631 \u39064  (VOL.01) */\
-        .vol-title \{\
-            margin: 25px 0 15px;\
-            padding-left: 10px;\
-            font-size: 0.9rem;\
-            font-weight: bold;\
-            opacity: 0.6;\
-            letter-spacing: 1px;\
-            border-left: 4px solid #ddd;\
-        \}\
-        \
-        /* \uc0\u21160 \u24577 \u25913 \u21464 \u20998 \u20876 \u26631 \u39064 \u30340 \u36793 \u26694 \u39068 \u33394  */\
-        [data-type="person"] .vol-title \{ border-color: var(--color-person); color: var(--color-person); \}\
-        [data-type="place"] .vol-title \{ border-color: var(--color-place); color: #dcb300; \}\
-        [data-type="action"] .vol-title \{ border-color: var(--color-action); color: var(--color-action); \}\
-\
-        /* --- \uc0\u32593 \u26684 \u24067 \u23616  --- */\
-        .grid-container \{\
-            display: grid;\
-            grid-template-columns: repeat(3, 1fr); /* \uc0\u19968 \u34892 3\u20010  */\
-            gap: 15px;\
-        \}\
-\
-        /* --- \uc0\u27700 \u31881 \u39118 \u21333 \u35789 \u21345 \u29255  --- */\
-        .word-card \{\
-            aspect-ratio: 1; /* \uc0\u27491 \u26041 \u24418  */\
-            display: flex;\
-            flex-direction: column;\
-            align-items: center;\
-            justify-content: center;\
-            background: white;\
-            border: 2px solid transparent;\
-            font-size: 1.1rem;\
-            font-weight: bold;\
-            cursor: pointer;\
-            position: relative;\
-            box-shadow: 2px 4px 10px rgba(0,0,0,0.05);\
-            transition: transform 0.1s;\
-            \
-            /* \uc0\u20851 \u38190 \u65306 \u19981 \u35268 \u21017 \u22278 \u35282 \u65292 \u27169 \u25311 \u25163 \u32472 \u24863  */\
-            border-radius: 20% 15% 20% 15% / 15% 20% 15% 20%; \
-        \}\
-\
-        .word-card:active \{ transform: scale(0.95); \}\
-\
-        /* \uc0\u25773 \u25918 \u20013 \u30340 \u29366 \u24577  */\
-        .word-card.playing \{\
-            animation: pulse 1s infinite;\
-        \}\
-\
-        /* \uc0\u38024 \u23545 \u19981 \u21516 \u20998 \u31867 \u30340 \u21345 \u29255 \u39068 \u33394  */\
-        .person-card \{ border-color: var(--color-person); color: #008ba3; background: #eefbff; \}\
-        .place-card \{ border-color: var(--color-place); color: #8a7000; background: #fffae3; \}\
-        .action-card \{ border-color: var(--color-action); color: #c93434; background: #fff0f0; \}\
-\
-        /* --- \uc0\u21160 \u30011  --- */\
-        @keyframes fadeIn \{ from \{ opacity: 0; transform: translateY(10px); \} to \{ opacity: 1; transform: translateY(0); \} \}\
-        @keyframes pulse \{ 0% \{ transform: scale(1); \} 50% \{ transform: scale(1.05); \} 100% \{ transform: scale(1); \} \}\
-\
-    </style>\
-</head>\
-<body>\
-\
-    <h1>EEZMANDARIN \uc0\u38899 \u39057 \u24211 </h1>\
-\
-    <div class="nav-tabs">\
-        <button class="tab-btn active" onclick="switchTab('person')" data-type="person">\uc0\u20154 \u29289 </button>\
-        <button class="tab-btn" onclick="switchTab('place')" data-type="place">\uc0\u22320 \u28857 </button>\
-        <button class="tab-btn" onclick="switchTab('action')" data-type="action">\uc0\u21160 \u20316 </button>\
-    </div>\
-\
-    <div class="content-area">\
-        \
-        <div id="person-panel" class="category-section active" data-type="person">\
-            </div>\
-\
-        <div id="place-panel" class="category-section" data-type="place"></div>\
-\
-        <div id="action-panel" class="category-section" data-type="action"></div>\
-\
-    </div>\
-\
-    <script>\
-        // --- \uc0\u26680 \u24515 \u25968 \u25454 \u37197 \u32622  (\u23436 \u20840 \u25353 \u29031 \u24744 \u25552 \u20379 \u30340 \u26368 \u26032 \u21015 \u34920 ) ---\
-        const DB = \{\
-            person: \{\
-                styleClass: 'person-card',\
-                vols: [\
-                    \{\
-                        title: "VOL.01 \uc0\u23478 \u24237  & \u26085 \u24120 \u20154 \u29289 ",\
-                        words: ["\uc0\u29240 \u29240 ", "\u22920 \u22920 ", "\u21733 \u21733 ", "\u22992 \u22992 ", "\u24351 \u24351 ", "\u22969 \u22969 ", "\u29239 \u29239 ", "\u22902 \u22902 ", "\u32769 \u24072 ", "\u23567 \u26379 \u21451 ", "\u23567 \u29483 ", "\u23567 \u29399 "]\
-                    \},\
-                    \{\
-                        title: "VOL.02 \uc0\u22478 \u24066 \u32844 \u19994 \u20154 \u29289 ",\
-                        words: ["\uc0\u21307 \u29983 ", "\u25252 \u22763 ", "\u21416 \u24072 ", "\u35686 \u23519 ", "\u21496 \u26426 ", "\u20892 \u22827 ", "\u28040 \u38450 \u21592 ", "\u36816 \u21160 \u21592 ", "\u24555 \u36882 \u21592 ", "\u26381 \u21153 \u21592 ", "\u28216 \u23458 ", "\u30011 \u23478 "]\
-                    \},\
-                    \{\
-                        title: "VOL.03 \uc0\u22855 \u24187  / \u24819 \u35937 \u20154 \u29289 ",\
-                        words: ["\uc0\u29579 \u23376 ", "\u20844 \u20027 ", "\u24618 \u20861 ", "\u28023 \u30423 ", "\u24656 \u40857 ", "\u22806 \u26143 \u20154 ", "\u39569 \u22763 ", "\u24043 \u24072 ", "\u23567 \u19985 ", "\u39764 \u26415 \u24072 ", "\u23431 \u33322 \u21592 ", "\u36229 \u32423 \u33521 \u38596 "]\
-                    \}\
-                ]\
-            \},\
-            place: \{\
-                styleClass: 'place-card',\
-                vols: [\
-                    \{\
-                        title: "VOL.01 \uc0\u23478 \u24237 \u19982 \u23398 \u20064 \u31354 \u38388 ",\
-                        words: ["\uc0\u23478 ", "\u23458 \u21381 ", "\u21351 \u23460 ", "\u21416 \u25151 ", "\u21355 \u29983 \u38388 ", "\u38451 \u21488 ", "\u39184 \u21381 ", "\u20070 \u25151 ", "\u24188 \u20799 \u22253 ", "\u25945 \u23460 ", "\u33457 \u22253 ", "\u38376 \u21475 "]\
-                    \},\
-                    \{\
-                        title: "VOL.02 \uc0\u22478 \u24066 \u20844 \u20849 \u22330 \u25152 ",\
-                        words: ["\uc0\u21307 \u38498 ", "\u35686 \u23519 \u23616 ", "\u28040 \u38450 \u31449 ", "\u30005 \u24433 \u38498 ", "\u22270 \u20070 \u39302 ", "\u28216 \u20048 \u22330 ", "\u28216 \u27891 \u27744 ", "\u36229 \u24066 ", "\u39277 \u24215 ", "\u21830 \u22330 ", "\u20844 \u22253 ", "\u20070 \u24215 "]\
-                    \},\
-                    \{\
-                        title: "VOL.03 \uc0\u22855 \u24187  / \u25143 \u22806 \u22330 \u26223 ",\
-                        words: ["\uc0\u21160 \u29289 \u22253 ", "\u28023 \u36793 ", "\u26862 \u26519 ", "\u22826 \u31354 ", "\u22478 \u22561 ", "\u23665 \u39030 ", "\u22825 \u31354 ", "\u23665 \u27934 ", "\u28023 \u24213 ", "\u20892 \u22330 ", "\u27801 \u28448 ", "\u38634 \u22320 "]\
-                    \}\
-                ]\
-            \},\
-            action: \{\
-                styleClass: 'action-card',\
-                vols: [\
-                    \{\
-                        title: "VOL.01 \uc0\u26085 \u24120 \u29983 \u27963 \u21160 \u20316 ",\
-                        words: ["\uc0\u21507 \u39277 ", "\u21917 \u27700 ", "\u30561 \u35273 ", "\u21047 \u29273 ", "\u27927 \u33080 ", "\u27927 \u25163 ", "\u27927 \u28577 ", "\u19978 \u21397 \u25152 ", "\u30475 \u20070 ", "\u20889 \u20316 \u19994 ", "\u29609 \u28216 \u25103 ", "\u30475 \u30005 \u35270 "]\
-                    \},\
-                    \{\
-                        title: "VOL.02 \uc0\u22478 \u24066  & \u20852 \u36259 \u21160 \u20316 ",\
-                        words: ["\uc0\u24037 \u20316 ", "\u30475 \u30149 ", "\u24320 \u36710 ", "\u20570 \u39277 ", "\u30011 \u30011 \u20799 ", "\u21809 \u27468 ", "\u36339 \u33310 ", "\u21548 \u38899 \u20048 ", "\u25171 \u30005 \u35805 ", "\u39569 \u36710 ", "\u20080 \u19996 \u35199 ", "\u25195 \u22320 "]\
-                    \},\
-                    \{\
-                        title: "VOL.03 \uc0\u36816 \u21160  / \u24773 \u32490  / \u39764 \u27861 ",\
-                        words: ["\uc0\u36305 \u27493 ", "\u28216 \u27891 ", "\u36386 \u29699 ", "\u28369 \u38634 ", "\u32842 \u22825 ", "\u36807 \u29983 \u26085 ", "\u39134 ", "\u22823 \u31505 ", "\u29228 \u26641 ", "\u25918 \u23617 ", "\u21464 \u39764 \u26415 ", "\u25265 \u25265 "]\
-                    \}\
-                ]\
-            \}\
-        \};\
-\
-        // --- \uc0\u21021 \u22987 \u21270 \u28210 \u26579 \u20989 \u25968  ---\
-        function renderAll() \{\
-            ['person', 'place', 'action'].forEach(type => \{\
-                const container = document.getElementById(type + '-panel');\
-                const data = DB[type];\
-                let html = '';\
-\
-                data.vols.forEach(vol => \{\
-                    html += `<div class="vol-title">$\{vol.title\}</div>`;\
-                    html += `<div class="grid-container">`;\
-                    vol.words.forEach(word => \{\
-                        // \uc0\u27599 \u20010 \u35789 \u29983 \u25104 \u19968 \u20010 \u21345 \u29255 \u25353 \u38062 \
-                        html += `\
-                            <div class="word-card $\{data.styleClass\}" onclick="playAudio('$\{word\}', this)">\
-                                $\{word\}\
-                            </div>\
-                        `;\
-                    \});\
-                    html += `</div>`;\
-                \});\
-\
-                container.innerHTML = html;\
-            \});\
-        \}\
-\
-        // --- \uc0\u20999 \u25442  Tab \u36923 \u36753  ---\
-        function switchTab(type) \{\
-            // 1. \uc0\u25353 \u38062 \u26679 \u24335 \u20999 \u25442 \
-            document.querySelectorAll('.tab-btn').forEach(btn => \{\
-                btn.classList.remove('active');\
-                if(btn.dataset.type === type) btn.classList.add('active');\
-            \});\
-\
-            // 2. \uc0\u38754 \u26495 \u20869 \u23481 \u20999 \u25442 \
-            document.querySelectorAll('.category-section').forEach(sec => \{\
-                sec.classList.remove('active');\
-            \});\
-            document.getElementById(type + '-panel').classList.add('active');\
-        \}\
-\
-        // --- \uc0\u38899 \u39057 \u25773 \u25918 \u36923 \u36753  ---\
-        let currentAudio = null;\
-        let currentBtn = null;\
-\
-        function playAudio(word, btnElement) \{\
-            // \uc0\u22914 \u26524 \u26377 \u27491 \u22312 \u25773 \u25918 \u30340 \u65292 \u20808 \u20572 \u27490 \
-            if (currentAudio) \{\
-                currentAudio.pause();\
-                currentAudio.currentTime = 0;\
-                if(currentBtn) currentBtn.classList.remove('playing');\
-            \}\
-\
-            // \uc0\u35270 \u35273 \u21453 \u39304 \
-            btnElement.classList.add('playing');\
-            currentBtn = btnElement;\
-\
-            // \uc0\u21019 \u24314 \u26032 \u38899 \u39057  (\u25991 \u20214 \u21517 \u20551 \u35774 \u20026 \u20013 \u25991 \u65292 \u20363 \u22914 \u65306 audio/\u22920 \u22920 .mp3)\
-            // \uc0\u55357 \u56481  \u25552 \u31034 \u65306 \u22914 \u26524 \u25991 \u20214 \u21517 \u26159 \u25340 \u38899 \u65292 \u36825 \u37324 \u38656 \u35201 \u20462 \u25913 \u26144 \u23556 \u36923 \u36753 \u65292 \u20294 \u30452 \u25509 \u29992 \u20013 \u25991 \u21517 \u26368 \u31616 \u21333 \
-            const audioPath = `audio/$\{word\}.mp3`; \
-            \
-            const audio = new Audio(audioPath);\
-            currentAudio = audio;\
-\
-            audio.play().catch(e => \{\
-                console.log("\uc0\u25773 \u25918 \u22833 \u36133 \u65292 \u35831 \u26816 \u26597 \u25991 \u20214 \u26159 \u21542 \u23384 \u22312 : " + audioPath);\
-                btnElement.classList.remove('playing');\
-                alert("\uc0\u22768 \u38899 \u25991 \u20214 \u26410 \u25214 \u21040 : " + word);\
-            \});\
-\
-            audio.onended = () => \{\
-                btnElement.classList.remove('playing');\
-                currentAudio = null;\
-            \};\
-        \}\
-\
-        // \uc0\u21551 \u21160 \u28210 \u26579 \
-        renderAll();\
-\
-    </script>\
-</body>\
-</html>}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>儿童中文闪卡音频库</title>
+    <style>
+        :root { --bg-paper: #fdfbf7; --color-person: #0cc0df; --color-place: #ffde59; --color-action: #ff6b6b; --text-main: #4a4a4a; }
+        body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        h1 { text-align: center; margin: 20px 0 10px; font-size: 1.2rem; opacity: 0.8; color: #555; }
+        .nav-tabs { display: flex; justify-content: center; gap: 10px; padding: 10px 15px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .tab-btn { flex: 1; padding: 12px 0; border: none; background: #eee; border-radius: 12px 12px 4px 4px; font-size: 1rem; font-weight: bold; color: #999; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active[data-type="person"] { background: var(--color-person); color: white; transform: translateY(-2px); }
+        .tab-btn.active[data-type="place"] { background: var(--color-place); color: #5a4a00; transform: translateY(-2px); }
+        .tab-btn.active[data-type="action"] { background: var(--color-action); color: white; transform: translateY(-2px); }
+        .content-area { padding: 10px 15px 60px; max-width: 600px; margin: 0 auto; }
+        .category-section { display: none; } .category-section.active { display: block; animation: fadeIn 0.4s ease; }
+        .vol-title { margin: 25px 0 10px; padding-left: 10px; font-size: 0.9rem; font-weight: bold; opacity: 0.7; border-left: 4px solid #ddd; color: var(--text-main); }
+        [data-type="person"] .vol-title { border-color: var(--color-person); }
+        [data-type="place"] .vol-title { border-color: var(--color-place); }
+        [data-type="action"] .vol-title { border-color: var(--color-action); }
+        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .word-card { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; border: 2px solid transparent; font-size: 1.05rem; font-weight: bold; cursor: pointer; position: relative; box-shadow: 2px 3px 8px rgba(0,0,0,0.03); border-radius: 16px; transition: transform 0.1s; user-select: none; }
+        .word-card:active { transform: scale(0.92); }
+        .word-card.playing { animation: pulse 1s infinite; border-width: 3px; }
+        .person-card { border-color: var(--color-person); color: #008ba3; background: #f4fcff; }
+        .place-card { border-color: var(--color-place); color: #8a7000; background: #fffdf5; }
+        .action-card { border-color: var(--color-action); color: #c93434; background: #fff5f5; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+    <h1>EEZMANDARIN 音频库</h1>
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('person')" data-type="person">人物</button>
+        <button class="tab-btn" onclick="switchTab('place')" data-type="place">地点</button>
+        <button class="tab-btn" onclick="switchTab('action')" data-type="action">动作</button>
+    </div>
+    <div class="content-area">
+        <div id="person-panel" class="category-section active" data-type="person"></div>
+        <div id="place-panel" class="category-section" data-type="place"></div>
+        <div id="action-panel" class="category-section" data-type="action"></div>
+    </div>
+    <script>
+        const DB = {
+            person: { styleClass: 'person-card', vols: [
+                { title: "VOL.01 家庭 & 日常人物", words: ["爸爸", "妈妈", "哥哥", "姐姐", "弟弟", "妹妹", "爷爷", "奶奶", "老师", "小朋友", "小猫", "小狗"] },
+                { title: "VOL.02 城市职业人物", words: ["医生", "护士", "厨师", "警察", "司机", "农夫", "消防员", "运动员", "快递员", "服务员", "游客", "画家"] },
+                { title: "VOL.03 奇幻 / 想象人物", words: ["王子", "公主", "怪兽", "海盗", "恐龙", "外星人", "骑士", "巫师", "小丑", "魔术师", "宇航员", "超级英雄"] }
+            ]},
+            place: { styleClass: 'place-card', vols: [
+                { title: "VOL.01 家庭与学习空间", words: ["家", "客厅", "卧室", "厨房", "卫生间", "阳台", "餐厅", "书房", "幼儿园", "教室", "花园", "门口"] },
+                { title: "VOL.02 城市公共场所", words: ["医院", "警察局", "消防站", "电影院", "图书馆", "游乐场", "游泳池", "超市", "饭店", "商场", "公园", "书店"] },
+                { title: "VOL.03 奇幻 / 户外场景", words: ["动物园", "海边", "森林", "太空", "城堡", "山顶", "天空", "山洞", "海底", "农场", "沙漠", "雪地"] }
+            ]},
+            action: { styleClass: 'action-card', vols: [
+                { title: "VOL.01 日常生活动作", words: ["吃饭", "喝水", "睡觉", "刷牙", "洗脸", "洗手", "洗澡", "上厕所", "看书", "写作业", "玩游戏", "看电视"] },
+                { title: "VOL.02 城市 & 兴趣动作", words: ["工作", "看病", "开车", "做饭", "画画儿", "唱歌", "跳舞", "听音乐", "打电话", "骑车", "买东西", "扫地"] },
+                { title: "VOL.03 运动 / 情绪 / 魔法", words: ["跑步", "游泳", "踢球", "滑雪", "聊天", "过生日", "飞", "大笑", "爬树", "放屁", "变魔术", "抱抱"] }
+            ]}
+        };
+        function renderAll() {
+            ['person', 'place', 'action'].forEach(type => {
+                const container = document.getElementById(type + '-panel');
+                const data = DB[type];
+                let html = '';
+                data.vols.forEach(vol => {
+                    html += `<div class="vol-title">${vol.title}</div><div class="grid-container">`;
+                    vol.words.forEach(word => { html += `<div class="word-card ${data.styleClass}" onclick="playAudio('${word}', this)">${word}</div>`; });
+                    html += `</div>`;
+                });
+                container.innerHTML = html;
+            });
+        }
+        function switchTab(type) {
+            document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); if(btn.dataset.type === type) btn.classList.add('active'); });
+            document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(type + '-panel').classList.add('active');
+        }
+        let currentAudio = null, currentBtn = null;
+        function playAudio(word, btn) {
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
+            btn.classList.add('playing'); currentBtn = btn;
+            const audio = new Audio(`audio/${word}.mp3`);
+            currentAudio = audio;
+            audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
+            audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
+        }
+        renderAll();
+    </script>
+</body>
+</html>
