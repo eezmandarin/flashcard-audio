@@ -10,24 +10,28 @@
         h1 { text-align: center; margin: 20px 0 10px; font-size: 1.2rem; opacity: 0.8; color: #555; }
         
         /* 顶部导航 */
-        .nav-tabs { display: flex; justify-content: center; gap: 10px; padding: 10px 15px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .tab-btn { flex: 1; padding: 12px 0; border: none; background: #eee; border-radius: 12px 12px 4px 4px; font-size: 1rem; font-weight: bold; color: #999; cursor: pointer; transition: 0.2s; }
+        .nav-tabs { display: flex; justify-content: center; gap: 8px; padding: 10px 10px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .tab-btn { flex: 1; padding: 10px 0; border: none; background: #eee; border-radius: 10px 10px 4px 4px; font-size: 0.95rem; font-weight: bold; color: #999; cursor: pointer; transition: 0.2s; }
         .tab-btn.active[data-type="person"] { background: var(--color-person); color: white; transform: translateY(-2px); }
         .tab-btn.active[data-type="place"] { background: var(--color-place); color: #5a4a00; transform: translateY(-2px); }
         .tab-btn.active[data-type="action"] { background: var(--color-action); color: white; transform: translateY(-2px); }
         
         /* 内容区 */
-        .content-area { padding: 10px 15px 60px; max-width: 600px; margin: 0 auto; }
+        .content-area { padding: 10px 10px 60px; max-width: 600px; margin: 0 auto; }
         .category-section { display: none; } .category-section.active { display: block; animation: fadeIn 0.4s ease; }
-        .vol-title { margin: 25px 0 10px; padding-left: 10px; font-size: 0.9rem; font-weight: bold; opacity: 0.7; border-left: 4px solid #ddd; color: var(--text-main); }
+        .vol-title { margin: 20px 0 10px; padding-left: 8px; font-size: 0.85rem; font-weight: bold; opacity: 0.7; border-left: 4px solid #ddd; color: var(--text-main); }
         [data-type="person"] .vol-title { border-color: var(--color-person); }
         [data-type="place"] .vol-title { border-color: var(--color-place); }
         [data-type="action"] .vol-title { border-color: var(--color-action); }
         
-        /* 网格布局 */
-        .grid-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        /* --- 核心修改：一行 4 个 --- */
+        .grid-container { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); /* 这里改成了4 */
+            gap: 8px; /* 间距改小 */
+        }
         
-        /* 卡片样式优化 - 双语版 */
+        /* 卡片样式 */
         .word-card { 
             aspect-ratio: 1; 
             display: flex; 
@@ -38,19 +42,19 @@
             border: 2px solid transparent; 
             cursor: pointer; 
             position: relative; 
-            box-shadow: 2px 3px 8px rgba(0,0,0,0.03); 
-            border-radius: 16px; 
+            box-shadow: 2px 3px 6px rgba(0,0,0,0.03); 
+            border-radius: 12px; /* 圆角稍微改小一点适配小格子 */
             transition: transform 0.1s; 
             user-select: none;
-            padding: 5px; /* 防止文字贴边 */
+            padding: 2px;
             text-align: center;
         }
         .word-card:active { transform: scale(0.92); }
-        .word-card.playing { animation: pulse 1s infinite; border-width: 3px; }
+        .word-card.playing { animation: pulse 1s infinite; border-width: 2px; }
         
-        /* 文字排版 */
-        .cn-text { font-size: 1.2rem; font-weight: bold; margin-bottom: 2px; line-height: 1.2; }
-        .en-text { font-size: 0.75rem; opacity: 0.8; font-weight: normal; line-height: 1.1; word-wrap: break-word; }
+        /* 文字排版 - 适配小格子 */
+        .cn-text { font-size: 1.05rem; font-weight: bold; margin-bottom: 2px; line-height: 1.1; } /* 中文稍微改小 */
+        .en-text { font-size: 0.65rem; opacity: 0.8; font-weight: normal; line-height: 1.0; word-wrap: break-word; overflow: hidden; } /* 英文改小 */
 
         /* 分类配色 */
         .person-card { border-color: var(--color-person); color: #008ba3; background: #f4fcff; }
@@ -76,7 +80,7 @@
     </div>
 
     <script>
-        // --- 核心数据配置 (已更新为中英双语版) ---
+        // --- 核心数据配置 ---
         const DB = {
             person: { 
                 styleClass: 'person-card', 
@@ -84,17 +88,17 @@
                     { 
                         title: "VOL.01 日常生活 · Family & Friends", 
                         words: [
-                            {cn:"爸爸", en:"Dad"}, {cn:"妈妈", en:"Mom"}, {cn:"哥哥", en:"Older Brother"}, {cn:"姐姐", en:"Older Sister"},
-                            {cn:"弟弟", en:"Younger Brother"}, {cn:"妹妹", en:"Younger Sister"}, {cn:"爷爷", en:"Grandpa"}, {cn:"奶奶", en:"Grandma"},
+                            {cn:"爸爸", en:"Dad"}, {cn:"妈妈", en:"Mom"}, {cn:"哥哥", en:"Older Bro"}, {cn:"姐姐", en:"Older Sis"},
+                            {cn:"弟弟", en:"Younger Bro"}, {cn:"妹妹", en:"Younger Sis"}, {cn:"爷爷", en:"Grandpa"}, {cn:"奶奶", en:"Grandma"},
                             {cn:"老师", en:"Teacher"}, {cn:"小朋友", en:"Child"}, {cn:"小猫", en:"Kitten"}, {cn:"小狗", en:"Puppy"}
                         ] 
                     },
                     { 
                         title: "VOL.02 城市英雄 · Heroes & Hobbies", 
                         words: [
-                            {cn:"医生", en:"Doctor"}, {cn:"护士", en:"Nurse"}, {cn:"厨师", en:"Chef"}, {cn:"警察", en:"Police Officer"},
+                            {cn:"医生", en:"Doctor"}, {cn:"护士", en:"Nurse"}, {cn:"厨师", en:"Chef"}, {cn:"警察", en:"Police"},
                             {cn:"司机", en:"Driver"}, {cn:"农夫", en:"Farmer"}, {cn:"消防员", en:"Firefighter"}, {cn:"运动员", en:"Athlete"},
-                            {cn:"快递员", en:"Delivery Person"}, {cn:"服务员", en:"Server"}, {cn:"游客", en:"Tourist"}, {cn:"画家", en:"Painter"}
+                            {cn:"快递员", en:"Courier"}, {cn:"服务员", en:"Server"}, {cn:"游客", en:"Tourist"}, {cn:"画家", en:"Painter"}
                         ] 
                     },
                     { 
@@ -121,9 +125,9 @@
                     { 
                         title: "VOL.02 城市英雄 · City Places", 
                         words: [
-                            {cn:"医院", en:"Hospital"}, {cn:"警察局", en:"Police Station"}, {cn:"消防站", en:"Fire Station"}, {cn:"电影院", en:"Cinema"},
-                            {cn:"图书馆", en:"Library"}, {cn:"游乐场", en:"Playground"}, {cn:"游泳池", en:"Swimming Pool"}, {cn:"超市", en:"Supermarket"},
-                            {cn:"饭店", en:"Restaurant"}, {cn:"商场", en:"Shopping Mall"}, {cn:"公园", en:"Park"}, {cn:"书店", en:"Bookstore"}
+                            {cn:"医院", en:"Hospital"}, {cn:"警察局", en:"Police Stn"}, {cn:"消防站", en:"Fire Stn"}, {cn:"电影院", en:"Cinema"},
+                            {cn:"图书馆", en:"Library"}, {cn:"游乐场", en:"Playground"}, {cn:"游泳池", en:"Pool"}, {cn:"超市", en:"Supermarket"},
+                            {cn:"饭店", en:"Restaurant"}, {cn:"商场", en:"Mall"}, {cn:"公园", en:"Park"}, {cn:"书店", en:"Bookstore"}
                         ] 
                     },
                     { 
@@ -131,7 +135,7 @@
                         words: [
                             {cn:"动物园", en:"Zoo"}, {cn:"海边", en:"Seaside"}, {cn:"森林", en:"Forest"}, {cn:"太空", en:"Space"},
                             {cn:"城堡", en:"Castle"}, {cn:"山顶", en:"Mountaintop"}, {cn:"天空", en:"Sky"}, {cn:"山洞", en:"Cave"},
-                            {cn:"海底", en:"Under The Sea"}, {cn:"农场", en:"Farm"}, {cn:"沙漠", en:"Desert"}, {cn:"雪地", en:"Snowfield"}
+                            {cn:"海底", en:"Under Sea"}, {cn:"农场", en:"Farm"}, {cn:"沙漠", en:"Desert"}, {cn:"雪地", en:"Snowfield"}
                         ] 
                     }
                 ]
@@ -143,31 +147,31 @@
                         title: "VOL.01 日常生活 · Daily Actions", 
                         words: [
                             {cn:"吃饭", en:"Eat"}, {cn:"喝水", en:"Drink"}, {cn:"睡觉", en:"Sleep"}, {cn:"刷牙", en:"Brush Teeth"},
-                            {cn:"洗脸", en:"Wash Face"}, {cn:"洗手", en:"Wash Hands"}, {cn:"洗澡", en:"Take A Bath"}, {cn:"上厕所", en:"Use The Bathroom"},
-                            {cn:"看书", en:"Read"}, {cn:"写作业", en:"Do Homework"}, {cn:"玩游戏", en:"Play Games"}, {cn:"看电视", en:"Watch TV"}
+                            {cn:"洗脸", en:"Wash Face"}, {cn:"洗手", en:"Wash Hands"}, {cn:"洗澡", en:"Bath"}, {cn:"上厕所", en:"Toilet"},
+                            {cn:"看书", en:"Read"}, {cn:"写作业", en:"Homework"}, {cn:"玩游戏", en:"Play Games"}, {cn:"看电视", en:"Watch TV"}
                         ] 
                     },
                     { 
                         title: "VOL.02 城市英雄 · Hobbies & Jobs", 
                         words: [
-                            {cn:"工作", en:"Work"}, {cn:"看病", en:"See A Doctor"}, {cn:"开车", en:"Drive"}, {cn:"做饭", en:"Cook"},
-                            {cn:"画画儿", en:"Draw"}, {cn:"唱歌", en:"Sing"}, {cn:"跳舞", en:"Dance"}, {cn:"听音乐", en:"Listen To Music"},
-                            {cn:"打电话", en:"Make A Call"}, {cn:"骑车", en:"Ride A Bike"}, {cn:"买东西", en:"Go Shopping"}, {cn:"扫地", en:"Sweep The Floor"}
+                            {cn:"工作", en:"Work"}, {cn:"看病", en:"See Doctor"}, {cn:"开车", en:"Drive"}, {cn:"做饭", en:"Cook"},
+                            {cn:"画画儿", en:"Draw"}, {cn:"唱歌", en:"Sing"}, {cn:"跳舞", en:"Dance"}, {cn:"听音乐", en:"Music"},
+                            {cn:"打电话", en:"Call"}, {cn:"骑车", en:"Ride Bike"}, {cn:"买东西", en:"Shop"}, {cn:"扫地", en:"Sweep"}
                         ] 
                     },
                     { 
                         title: "VOL.03 奇幻冒险 · Active Fun", 
                         words: [
-                            {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Play Football"}, {cn:"滑雪", en:"Ski"},
-                            {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Celebrate A Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"},
-                            {cn:"爬树", en:"Climb A Tree"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Do Magic"}, {cn:"抱抱", en:"Hug"}
+                            {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Football"}, {cn:"滑雪", en:"Ski"},
+                            {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"},
+                            {cn:"爬树", en:"Climb Tree"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Magic"}, {cn:"抱抱", en:"Hug"}
                         ] 
                     }
                 ]
             }
         };
 
-        // --- 渲染函数 (更新支持双语) ---
+        // --- 渲染函数 ---
         function renderAll() {
             ['person', 'place', 'action'].forEach(type => {
                 const container = document.getElementById(type + '-panel');
@@ -176,7 +180,6 @@
                 data.vols.forEach(vol => {
                     html += `<div class="vol-title">${vol.title}</div><div class="grid-container">`;
                     vol.words.forEach(item => { 
-                        // 这里：playAudio 只传 item.cn (中文名)，显示则包含 cn 和 en
                         html += `
                         <div class="word-card ${data.styleClass}" onclick="playAudio('${item.cn}', this)">
                             <div class="cn-text">${item.cn}</div>
@@ -189,24 +192,22 @@
             });
         }
 
-        // --- 切换 Tab 逻辑 ---
+        // --- 切换 Tab ---
         function switchTab(type) {
             document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); if(btn.dataset.type === type) btn.classList.add('active'); });
             document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(type + '-panel').classList.add('active');
         }
 
-        // --- 播放逻辑 (依靠中文文件名) ---
+        // --- 播放逻辑 ---
         let currentAudio = null, currentBtn = null;
         function playAudio(word, btn) {
             if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
             btn.classList.add('playing'); currentBtn = btn;
             
-            // 注意：这里依然是找 "audio/爸爸.mp3"
             const audio = new Audio(`audio/${word}.mp3`);
-            
             currentAudio = audio;
-            audio.play().catch(e => { console.log("Missing audio: " + word); btn.classList.remove('playing'); });
+            audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
             audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
         }
         
