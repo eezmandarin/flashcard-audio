@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>儿童中文闪卡音频库</title>
     <style>
-        :root { --bg-paper: #fdfbf7; --color-person: #0cc0df; --color-place: #ffde59; --color-action: #ff6b6b; --text-main: #4a4a4a; }
+        :root { 
+            --bg-paper: #fdfbf7; 
+            --color-person: #0cc0df; 
+            --color-place: #ffde59; 
+            --color-action: #ff6b6b; 
+            --text-main: #555555; /* 核心修改：改为深灰色 */
+        }
         body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        h1 { text-align: center; margin: 20px 0 5px; font-size: 1.1rem; opacity: 0.6; color: #555; }
+        h1 { text-align: center; margin: 20px 0 5px; font-size: 1.1rem; opacity: 0.6; color: #666; }
         
-        /* 导航栏更紧凑 */
+        /* 导航栏 */
         .nav-tabs { display: flex; justify-content: center; gap: 6px; padding: 8px 8px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
         .tab-btn { flex: 1; padding: 10px 0; border: none; background: #eee; border-radius: 8px; font-size: 1rem; font-weight: bold; color: #999; cursor: pointer; transition: 0.2s; }
         .tab-btn.active[data-type="person"] { background: var(--color-person); color: white; transform: translateY(-1px); }
@@ -23,11 +29,11 @@
         [data-type="place"] .vol-title { border-color: var(--color-place); }
         [data-type="action"] .vol-title { border-color: var(--color-action); }
         
-        /* --- 极窄间距，把空间留给文字 --- */
+        /* 网格布局 */
         .grid-container { 
             display: grid; 
             grid-template-columns: repeat(4, 1fr); 
-            gap: 5px; /* 间距压到最小 */
+            gap: 5px; 
         }
         
         .word-card { 
@@ -43,21 +49,33 @@
             box-shadow: 1px 2px 5px rgba(0,0,0,0.05); 
             border-radius: 10px; 
             user-select: none;
-            padding: 1px; /* 内边距几乎为0 */
+            padding: 1px;
             text-align: center;
         }
         .word-card:active { transform: scale(0.92); }
         .word-card.playing { animation: pulse 1s infinite; border-width: 2px; }
         
-        /* --- 智能字体类 --- */
-        .cn-text { font-weight: 800; line-height: 1.1; margin-bottom: 0px; color: #333; }
-        .en-text { font-weight: normal; line-height: 1.0; opacity: 0.85; word-wrap: break-word; overflow: hidden; }
+        /* --- 字体与排版修改区 --- */
+        .cn-text { 
+            font-weight: 800; 
+            line-height: 1.1; 
+            margin-bottom: 5px; /* 核心修改：增加下方间距，让中英分离 */
+            color: var(--text-main); /* 核心修改：使用深灰变量 */
+        }
+        .en-text { 
+            font-weight: normal; 
+            line-height: 1.0; 
+            opacity: 0.8; /* 稍微透明一点，突出中文 */
+            word-wrap: break-word; 
+            overflow: hidden; 
+            color: #777; /* 英文比中文更淡一点 */
+        }
 
         /* 🟢 普通词 (2-3字)：超大字体 */
-        .size-big .cn-text { font-size: 1.45rem; }  /* 以前是1.05，现在极大 */
+        .size-big .cn-text { font-size: 1.45rem; }
         .size-big .en-text { font-size: 0.7rem; transform: scale(0.9); } 
 
-        /* 🟡 长词 (4字+)：普通字体，防撑破 */
+        /* 🟡 长词 (4字+)：适配字体 */
         .size-small .cn-text { font-size: 1.05rem; } 
         .size-small .en-text { font-size: 0.6rem; transform: scale(0.85); }
 
@@ -183,8 +201,7 @@
                 data.vols.forEach(vol => {
                     html += `<div class="vol-title">${vol.title}</div><div class="grid-container">`;
                     vol.words.forEach(item => { 
-                        // --- 智能字号判断逻辑 ---
-                        // 如果中文长度大于等于4个字，就用 small 模式，否则用 big 模式
+                        // 智能字号判断：4个字及以上用小字体
                         const sizeClass = item.cn.length >= 4 ? 'size-small' : 'size-big';
                         
                         html += `
