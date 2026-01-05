@@ -10,79 +10,72 @@
             --color-person: #0cc0df; 
             --color-place: #ffde59; 
             --color-action: #ff6b6b; 
-            --text-main: #555555; /* 核心修改：改为深灰色 */
+            --text-main: #555555;
+            --color-vol1: #7FB069; /* 每一册的主题色，可微调 */
+            --color-vol2: #E6955C;
+            --color-vol3: #897BCC;
         }
         body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        h1 { text-align: center; margin: 20px 0 5px; font-size: 1.1rem; opacity: 0.6; color: #666; }
         
-        /* 导航栏 */
-        .nav-tabs { display: flex; justify-content: center; gap: 6px; padding: 8px 8px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .tab-btn { flex: 1; padding: 10px 0; border: none; background: #eee; border-radius: 8px; font-size: 1rem; font-weight: bold; color: #999; cursor: pointer; transition: 0.2s; }
-        .tab-btn.active[data-type="person"] { background: var(--color-person); color: white; transform: translateY(-1px); }
-        .tab-btn.active[data-type="place"] { background: var(--color-place); color: #5a4a00; transform: translateY(-1px); }
-        .tab-btn.active[data-type="action"] { background: var(--color-action); color: white; transform: translateY(-1px); }
+        /* 顶部大标题 */
+        h1 { text-align: center; margin: 15px 0 5px; font-size: 1.1rem; opacity: 0.6; color: #666; }
+        
+        /* --- 导航栏 (改为 VOL 分页) --- */
+        .nav-tabs { display: flex; justify-content: center; gap: 8px; padding: 8px 10px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        .tab-btn { flex: 1; padding: 12px 0; border: none; background: #eee; border-radius: 8px; font-size: 1rem; font-weight: 800; color: #999; cursor: pointer; transition: 0.2s; }
+        
+        /* 激活状态 */
+        .tab-btn.active[data-vol="vol1"] { background: var(--text-main); color: white; transform: translateY(-1px); }
+        .tab-btn.active[data-vol="vol2"] { background: var(--text-main); color: white; transform: translateY(-1px); }
+        .tab-btn.active[data-vol="vol3"] { background: var(--text-main); color: white; transform: translateY(-1px); }
         
         .content-area { padding: 5px 8px 60px; max-width: 600px; margin: 0 auto; }
-        .category-section { display: none; } .category-section.active { display: block; animation: fadeIn 0.4s ease; }
-        .vol-title { margin: 15px 0 8px; padding-left: 5px; font-size: 0.8rem; font-weight: bold; opacity: 0.7; border-left: 4px solid #ddd; color: var(--text-main); }
-        [data-type="person"] .vol-title { border-color: var(--color-person); }
-        [data-type="place"] .vol-title { border-color: var(--color-place); }
-        [data-type="action"] .vol-title { border-color: var(--color-action); }
+        .vol-section { display: none; } .vol-section.active { display: block; animation: fadeIn 0.3s ease; }
+
+        /* 分册的大标题介绍 */
+        .vol-header { text-align: center; margin: 15px 0; padding-bottom: 10px; border-bottom: 2px dashed #ddd; }
+        .vol-header h2 { margin: 0; font-size: 1.2rem; color: #333; }
+        .vol-header p { margin: 5px 0 0; font-size: 0.9rem; color: #888; font-family: Georgia, serif; font-style: italic; }
+
+        /* --- 分类小标题 (人物/地点/动作) --- */
+        .cat-title { 
+            margin: 25px 0 10px; 
+            padding: 5px 10px; 
+            font-size: 0.95rem; 
+            font-weight: 800; 
+            border-radius: 6px;
+            display: inline-block;
+            color: white;
+        }
+        /* 小标题颜色逻辑 */
+        .cat-title.person { background-color: var(--color-person); }
+        .cat-title.place { background-color: var(--color-place); color: #7a6300; } /* 黄色背景字要深一点 */
+        .cat-title.action { background-color: var(--color-action); }
         
         /* 网格布局 */
-        .grid-container { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 5px; 
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
+        /* 卡片样式 */
         .word-card { 
-            aspect-ratio: 1; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            background: white; 
-            border: 2px solid transparent; 
-            cursor: pointer; 
-            position: relative; 
-            box-shadow: 1px 2px 5px rgba(0,0,0,0.05); 
-            border-radius: 10px; 
-            user-select: none;
-            padding: 1px;
-            text-align: center;
+            aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background: white; border: 2px solid transparent; cursor: pointer; position: relative; 
+            box-shadow: 1px 2px 5px rgba(0,0,0,0.05); border-radius: 12px; user-select: none; padding: 2px; text-align: center;
         }
         .word-card:active { transform: scale(0.92); }
-        .word-card.playing { animation: pulse 1s infinite; border-width: 2px; }
+        .word-card.playing { animation: pulse 1s infinite; border-width: 3px; }
         
-        /* --- 字体与排版修改区 --- */
-        .cn-text { 
-            font-weight: 800; 
-            line-height: 1.1; 
-            margin-bottom: 5px; /* 核心修改：增加下方间距，让中英分离 */
-            color: var(--text-main); /* 核心修改：使用深灰变量 */
-        }
-        .en-text { 
-            font-weight: normal; 
-            line-height: 1.0; 
-            opacity: 0.8; /* 稍微透明一点，突出中文 */
-            word-wrap: break-word; 
-            overflow: hidden; 
-            color: #777; /* 英文比中文更淡一点 */
-        }
+        /* 字体排版 */
+        .cn-text { font-weight: 800; line-height: 1.1; margin-bottom: 4px; color: var(--text-main); }
+        .en-text { font-weight: normal; line-height: 1.0; opacity: 0.8; word-wrap: break-word; overflow: hidden; color: #777; }
 
-        /* 🟢 普通词 (2-3字)：超大字体 */
-        .size-big .cn-text { font-size: 1.45rem; }
-        .size-big .en-text { font-size: 0.7rem; transform: scale(0.9); } 
+        /* 字号适配 */
+        .size-big .cn-text { font-size: 1.35rem; } .size-big .en-text { font-size: 0.65rem; transform: scale(0.9); } 
+        .size-small .cn-text { font-size: 1.05rem; } .size-small .en-text { font-size: 0.6rem; transform: scale(0.85); }
 
-        /* 🟡 长词 (4字+)：适配字体 */
-        .size-small .cn-text { font-size: 1.05rem; } 
-        .size-small .en-text { font-size: 0.6rem; transform: scale(0.85); }
-
-        /* 配色 */
-        .person-card { border-color: var(--color-person); color: #008ba3; background: #f4fcff; }
-        .place-card { border-color: var(--color-place); color: #8a7000; background: #fffdf5; }
-        .action-card { border-color: var(--color-action); color: #c93434; background: #fff5f5; }
+        /* 卡片特定边框色 */
+        .person-card { border-color: var(--color-person); background: #f4fcff; }
+        .place-card { border-color: var(--color-place); background: #fffdf5; }
+        .action-card { border-color: var(--color-action); background: #fff5f5; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -90,122 +83,136 @@
 </head>
 <body>
     <h1>EEZMANDARIN 音频库</h1>
+    
     <div class="nav-tabs">
-        <button class="tab-btn active" onclick="switchTab('person')" data-type="person">人物</button>
-        <button class="tab-btn" onclick="switchTab('place')" data-type="place">地点</button>
-        <button class="tab-btn" onclick="switchTab('action')" data-type="action">动作</button>
+        <button class="tab-btn active" onclick="switchVol('vol1')" data-vol="vol1">VOL.01</button>
+        <button class="tab-btn" onclick="switchVol('vol2')" data-vol="vol2">VOL.02</button>
+        <button class="tab-btn" onclick="switchVol('vol3')" data-vol="vol3">VOL.03</button>
     </div>
     
     <div class="content-area">
-        <div id="person-panel" class="category-section active" data-type="person"></div>
-        <div id="place-panel" class="category-section" data-type="place"></div>
-        <div id="action-panel" class="category-section" data-type="action"></div>
+        <div id="container-vol1" class="vol-section active"></div>
+        <div id="container-vol2" class="vol-section"></div>
+        <div id="container-vol3" class="vol-section"></div>
     </div>
 
     <script>
+        // --- 数据结构重组：按分册(VOL) -> 分类(Category) ---
         const DB = {
-            person: { 
-                styleClass: 'person-card', 
-                vols: [
-                    { 
-                        title: "VOL.01 日常生活", 
+            vol1: {
+                title: "日常生活",
+                subtitle: "Family & Friends",
+                groups: [
+                    {
+                        type: "person", label: "人物 (Person)", style: "person-card",
                         words: [
-                            {cn:"爸爸", en:"Dad"}, {cn:"妈妈", en:"Mom"}, {cn:"哥哥", en:"Brother"}, {cn:"姐姐", en:"Sister"},
-                            {cn:"弟弟", en:"Brother"}, {cn:"妹妹", en:"Sister"}, {cn:"爷爷", en:"Grandpa"}, {cn:"奶奶", en:"Grandma"},
+                            {cn:"爸爸", en:"Dad"}, {cn:"妈妈", en:"Mom"}, {cn:"哥哥", en:"Older Brother"}, {cn:"姐姐", en:"Older Sister"},
+                            {cn:"弟弟", en:"Younger Brother"}, {cn:"妹妹", en:"Younger Sister"}, {cn:"爷爷", en:"Grandpa"}, {cn:"奶奶", en:"Grandma"},
                             {cn:"老师", en:"Teacher"}, {cn:"小朋友", en:"Child"}, {cn:"小猫", en:"Kitten"}, {cn:"小狗", en:"Puppy"}
-                        ] 
+                        ]
                     },
-                    { 
-                        title: "VOL.02 城市英雄", 
+                    {
+                        type: "place", label: "地点 (Place)", style: "place-card",
                         words: [
-                            {cn:"医生", en:"Doctor"}, {cn:"护士", en:"Nurse"}, {cn:"厨师", en:"Chef"}, {cn:"警察", en:"Police"},
-                            {cn:"司机", en:"Driver"}, {cn:"农夫", en:"Farmer"}, {cn:"消防员", en:"Firefighter"}, {cn:"运动员", en:"Athlete"},
-                            {cn:"快递员", en:"Courier"}, {cn:"服务员", en:"Server"}, {cn:"游客", en:"Tourist"}, {cn:"画家", en:"Painter"}
-                        ] 
+                            {cn:"家", en:"Home"}, {cn:"客厅", en:"Living Room"}, {cn:"卧室", en:"Bedroom"}, {cn:"厨房", en:"Kitchen"},
+                            {cn:"卫生间", en:"Bathroom"}, {cn:"阳台", en:"Balcony"}, {cn:"餐厅", en:"Dining Room"}, {cn:"书房", en:"Study Room"},
+                            {cn:"幼儿园", en:"Kindergarten"}, {cn:"教室", en:"Classroom"}, {cn:"花园", en:"Garden"}, {cn:"门口", en:"Doorway"}
+                        ]
                     },
-                    { 
-                        title: "VOL.03 奇幻冒险", 
+                    {
+                        type: "action", label: "动作 (Action)", style: "action-card",
+                        words: [
+                            {cn:"吃饭", en:"Eat"}, {cn:"喝水", en:"Drink"}, {cn:"睡觉", en:"Sleep"}, {cn:"刷牙", en:"Brush Teeth"},
+                            {cn:"洗脸", en:"Wash Face"}, {cn:"洗手", en:"Wash Hands"}, {cn:"洗澡", en:"Take A Bath"}, {cn:"上厕所", en:"Use The Bathroom"},
+                            {cn:"看书", en:"Read"}, {cn:"写作业", en:"Do Homework"}, {cn:"玩游戏", en:"Play Games"}, {cn:"看电视", en:"Watch TV"}
+                        ]
+                    }
+                ]
+            },
+            vol2: {
+                title: "城市英雄",
+                subtitle: "Heroes & Hobbies",
+                groups: [
+                    {
+                        type: "person", label: "人物 (Person)", style: "person-card",
+                        words: [
+                            {cn:"医生", en:"Doctor"}, {cn:"护士", en:"Nurse"}, {cn:"厨师", en:"Chef"}, {cn:"警察", en:"Police Officer"},
+                            {cn:"司机", en:"Driver"}, {cn:"农夫", en:"Farmer"}, {cn:"消防员", en:"Firefighter"}, {cn:"运动员", en:"Athlete"},
+                            {cn:"快递员", en:"Delivery Person"}, {cn:"服务员", en:"Server"}, {cn:"游客", en:"Tourist"}, {cn:"画家", en:"Painter"}
+                        ]
+                    },
+                    {
+                        type: "place", label: "地点 (Place)", style: "place-card",
+                        words: [
+                            {cn:"医院", en:"Hospital"}, {cn:"警察局", en:"Police Station"}, {cn:"消防站", en:"Fire Station"}, {cn:"电影院", en:"Cinema"},
+                            {cn:"图书馆", en:"Library"}, {cn:"游乐场", en:"Playground"}, {cn:"游泳池", en:"Swimming Pool"}, {cn:"超市", en:"Supermarket"},
+                            {cn:"饭店", en:"Restaurant"}, {cn:"商场", en:"Shopping Mall"}, {cn:"公园", en:"Park"}, {cn:"书店", en:"Bookstore"}
+                        ]
+                    },
+                    {
+                        type: "action", label: "动作 (Action)", style: "action-card",
+                        words: [
+                            {cn:"工作", en:"Work"}, {cn:"看病", en:"See A Doctor"}, {cn:"开车", en:"Drive"}, {cn:"做饭", en:"Cook"},
+                            {cn:"画画儿", en:"Draw"}, {cn:"唱歌", en:"Sing"}, {cn:"跳舞", en:"Dance"}, {cn:"听音乐", en:"Listen To Music"},
+                            {cn:"打电话", en:"Make A Call"}, {cn:"骑车", en:"Ride A Bike"}, {cn:"买东西", en:"Go Shopping"}, {cn:"扫地", en:"Sweep The Floor"}
+                        ]
+                    }
+                ]
+            },
+            vol3: {
+                title: "奇幻冒险",
+                subtitle: "Magic & Monsters",
+                groups: [
+                    {
+                        type: "person", label: "人物 (Person)", style: "person-card",
                         words: [
                             {cn:"王子", en:"Prince"}, {cn:"公主", en:"Princess"}, {cn:"怪兽", en:"Monster"}, {cn:"海盗", en:"Pirate"},
                             {cn:"恐龙", en:"Dinosaur"}, {cn:"外星人", en:"Alien"}, {cn:"骑士", en:"Knight"}, {cn:"巫师", en:"Wizard"},
                             {cn:"小丑", en:"Clown"}, {cn:"魔术师", en:"Magician"}, {cn:"宇航员", en:"Astronaut"}, {cn:"超级英雄", en:"Superhero"}
-                        ] 
-                    }
-                ]
-            },
-            place: { 
-                styleClass: 'place-card', 
-                vols: [
-                    { 
-                        title: "VOL.01 日常生活", 
-                        words: [
-                            {cn:"家", en:"Home"}, {cn:"客厅", en:"LivingRm"}, {cn:"卧室", en:"Bedroom"}, {cn:"厨房", en:"Kitchen"},
-                            {cn:"卫生间", en:"Bathroom"}, {cn:"阳台", en:"Balcony"}, {cn:"餐厅", en:"DiningRm"}, {cn:"书房", en:"Study"},
-                            {cn:"幼儿园", en:"School"}, {cn:"教室", en:"Classroom"}, {cn:"花园", en:"Garden"}, {cn:"门口", en:"Doorway"}
-                        ] 
+                        ]
                     },
-                    { 
-                        title: "VOL.02 城市英雄", 
-                        words: [
-                            {cn:"医院", en:"Hospital"}, {cn:"警察局", en:"PoliceStn"}, {cn:"消防站", en:"FireStn"}, {cn:"电影院", en:"Cinema"},
-                            {cn:"图书馆", en:"Library"}, {cn:"游乐场", en:"Playground"}, {cn:"游泳池", en:"Pool"}, {cn:"超市", en:"Supermkt"},
-                            {cn:"饭店", en:"Restaurant"}, {cn:"商场", en:"Mall"}, {cn:"公园", en:"Park"}, {cn:"书店", en:"Bookstore"}
-                        ] 
-                    },
-                    { 
-                        title: "VOL.03 奇幻冒险", 
+                    {
+                        type: "place", label: "地点 (Place)", style: "place-card",
                         words: [
                             {cn:"动物园", en:"Zoo"}, {cn:"海边", en:"Seaside"}, {cn:"森林", en:"Forest"}, {cn:"太空", en:"Space"},
-                            {cn:"城堡", en:"Castle"}, {cn:"山顶", en:"Mountain"}, {cn:"天空", en:"Sky"}, {cn:"山洞", en:"Cave"},
-                            {cn:"海底", en:"UnderSea"}, {cn:"农场", en:"Farm"}, {cn:"沙漠", en:"Desert"}, {cn:"雪地", en:"Snow"}
-                        ] 
-                    }
-                ]
-            },
-            action: { 
-                styleClass: 'action-card', 
-                vols: [
-                    { 
-                        title: "VOL.01 日常生活", 
-                        words: [
-                            {cn:"吃饭", en:"Eat"}, {cn:"喝水", en:"Drink"}, {cn:"睡觉", en:"Sleep"}, {cn:"刷牙", en:"Brush"},
-                            {cn:"洗脸", en:"WashFace"}, {cn:"洗手", en:"WashHand"}, {cn:"洗澡", en:"Bath"}, {cn:"上厕所", en:"Toilet"},
-                            {cn:"看书", en:"Read"}, {cn:"写作业", en:"Homework"}, {cn:"玩游戏", en:"Game"}, {cn:"看电视", en:"WatchTV"}
-                        ] 
+                            {cn:"城堡", en:"Castle"}, {cn:"山顶", en:"Mountaintop"}, {cn:"天空", en:"Sky"}, {cn:"山洞", en:"Cave"},
+                            {cn:"海底", en:"Under The Sea"}, {cn:"农场", en:"Farm"}, {cn:"沙漠", en:"Desert"}, {cn:"雪地", en:"Snowfield"}
+                        ]
                     },
-                    { 
-                        title: "VOL.02 城市英雄", 
+                    {
+                        type: "action", label: "动作 (Action)", style: "action-card",
                         words: [
-                            {cn:"工作", en:"Work"}, {cn:"看病", en:"Doctor"}, {cn:"开车", en:"Drive"}, {cn:"做饭", en:"Cook"},
-                            {cn:"画画儿", en:"Draw"}, {cn:"唱歌", en:"Sing"}, {cn:"跳舞", en:"Dance"}, {cn:"听音乐", en:"Music"},
-                            {cn:"打电话", en:"Call"}, {cn:"骑车", en:"Ride"}, {cn:"买东西", en:"Shop"}, {cn:"扫地", en:"Sweep"}
-                        ] 
-                    },
-                    { 
-                        title: "VOL.03 奇幻冒险", 
-                        words: [
-                            {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Football"}, {cn:"滑雪", en:"Ski"},
-                            {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"},
-                            {cn:"爬树", en:"Climb"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Magic"}, {cn:"抱抱", en:"Hug"}
-                        ] 
+                            {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Play Football"}, {cn:"滑雪", en:"Ski"},
+                            {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Celebrate A Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"},
+                            {cn:"爬树", en:"Climb A Tree"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Do Magic"}, {cn:"抱抱", en:"Hug"}
+                        ]
                     }
                 ]
             }
         };
 
         function renderAll() {
-            ['person', 'place', 'action'].forEach(type => {
-                const container = document.getElementById(type + '-panel');
-                const data = DB[type];
-                let html = '';
-                data.vols.forEach(vol => {
-                    html += `<div class="vol-title">${vol.title}</div><div class="grid-container">`;
-                    vol.words.forEach(item => { 
-                        // 智能字号判断：4个字及以上用小字体
+            ['vol1', 'vol2', 'vol3'].forEach(volKey => {
+                const container = document.getElementById('container-' + volKey);
+                const data = DB[volKey];
+                let html = `
+                    <div class="vol-header">
+                        <h2>${data.title}</h2>
+                        <p>${data.subtitle}</p>
+                    </div>
+                `;
+
+                data.groups.forEach(group => {
+                    // 分类标题
+                    html += `<div class="cat-title ${group.type}">${group.label}</div>`;
+                    html += `<div class="grid-container">`;
+                    
+                    group.words.forEach(item => { 
+                        // 智能字号判断
                         const sizeClass = item.cn.length >= 4 ? 'size-small' : 'size-big';
                         
                         html += `
-                        <div class="word-card ${data.styleClass} ${sizeClass}" onclick="playAudio('${item.cn}', this)">
+                        <div class="word-card ${group.style} ${sizeClass}" onclick="playAudio('${item.cn}', this)">
                             <div class="cn-text">${item.cn}</div>
                             <div class="en-text">${item.en}</div>
                         </div>`; 
@@ -216,21 +223,28 @@
             });
         }
 
-        function switchTab(type) {
-            document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active'); if(btn.dataset.type === type) btn.classList.add('active'); });
-            document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
-            document.getElementById(type + '-panel').classList.add('active');
+        function switchVol(volKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => { 
+                btn.classList.remove('active'); 
+                if(btn.dataset.vol === volKey) btn.classList.add('active'); 
+            });
+            document.querySelectorAll('.vol-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('container-' + volKey).classList.add('active');
+            window.scrollTo(0, 0); // 切换时回到顶部
         }
 
         let currentAudio = null, currentBtn = null;
         function playAudio(word, btn) {
             if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
             btn.classList.add('playing'); currentBtn = btn;
+            
+            // 还是找 "爸爸.mp3"，逻辑不变
             const audio = new Audio(`audio/${word}.mp3`);
             currentAudio = audio;
             audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
             audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
         }
+        
         renderAll();
     </script>
 </body>
