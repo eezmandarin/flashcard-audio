@@ -79,6 +79,22 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+/* --- 新增：底部产品链接（低调版） --- */
+        .footer-promo {
+            text-align: center;
+            margin-top: 40px;
+            padding-bottom: 40px;
+            font-size: 0.8rem; /* 字号很小 */
+            color: #ccc;       /* 浅灰色，很不显眼 */
+            line-height: 1.8;
+        }
+        .footer-promo a {
+            color: #b0b0b0;    /* 链接颜色也很淡 */
+            text-decoration: none;
+            border-bottom: 1px dashed #ddd; /* 虚线底纹 */
+            transition: color 0.2s;
+        }
+        .footer-promo a:active { color: #888; border-bottom-style: solid; }
     </style>
 </head>
 <body>
@@ -95,7 +111,10 @@
         <div id="container-vol2" class="vol-section"></div>
         <div id="container-vol3" class="vol-section"></div>
     </div>
-
+<div class="footer-promo">
+        Want to keep playing?<br>
+        <a href="https://marvelous617.gumroad.com/" target="_blank">See the full EezMandarin kit →</a>
+    </div>
     <script>
         // --- 数据结构重组：按分册(VOL) -> 分类(Category) ---
         const DB = {
