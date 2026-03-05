@@ -202,4 +202,13 @@
             if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
             btn.classList.add('playing'); currentBtn = btn;
             
-            const audio = new Audio(`audio/${word
+            const audio = new Audio(`audio/${word}.mp3`);
+            currentAudio = audio;
+            audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
+            audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
+        }
+        
+        renderAll();
+    </script>
+</body>
+</html>
