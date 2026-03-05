@@ -15,8 +15,8 @@
             --color-action: #ff6b6b; 
 
             /* --- VOL 4 新配色方案 --- */
-            --color-food-verb: #FF8066;  /* 动作：珊瑚红 */
-            --color-food-all:  #7ed957;  /* 食物：统一绿色 */
+            --color-food-verb: #FF8066;  
+            --color-food-all:  #7ed957;  
         }
         body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
@@ -44,7 +44,13 @@
         
         /* VOL 4 颜色 */
         .cat-title.food-verb { background-color: var(--color-food-verb); }
-        .cat-title.food-item { background-color: var(--color-food-all); } /* 所有食物标题统一绿色 */
+        .cat-title.food-item { background-color: var(--color-food-all); } 
+
+        /* --- VOL 5 交通样式 --- */
+        .cat-title.trans-verb { background-color: #ff6b6b; color: white; }
+        .cat-title.trans-item { background-color: #00167a; color: white; }
+        .trans-verb-card { border-color: #ff6b6b; background: #fff5f5; }
+        .trans-item-card { border-color: #00167a; background: #f4f8ff; }
 
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
@@ -68,8 +74,8 @@
         .action-card { border-color: var(--color-action); background: #fff5f5; }
         
         /* VOL 4 卡片样式 */
-        .food-verb-card { border-color: var(--color-food-verb); background: #fff5f2; } /* 红卡 */
-        .food-item-card { border-color: var(--color-food-all); background: #f4fce8; } /* 绿卡 */
+        .food-verb-card { border-color: var(--color-food-verb); background: #fff5f2; } 
+        .food-item-card { border-color: var(--color-food-all); background: #f4fce8; } 
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -87,6 +93,7 @@
         <button class="tab-btn" onclick="switchVol('vol2')" data-vol="vol2">VOL.02</button>
         <button class="tab-btn" onclick="switchVol('vol3')" data-vol="vol3">VOL.03</button>
         <button class="tab-btn" onclick="switchVol('vol4')" data-vol="vol4">VOL.04</button>
+        <button class="tab-btn" onclick="switchVol('vol5')" data-vol="vol5">VOL.05</button>
     </div>
     
     <div class="content-area">
@@ -94,6 +101,7 @@
         <div id="container-vol2" class="vol-section"></div>
         <div id="container-vol3" class="vol-section"></div>
         <div id="container-vol4" class="vol-section"></div>
+        <div id="container-vol5" class="vol-section"></div>
     </div>
 
     <div class="footer-promo">
@@ -127,63 +135,30 @@
                     { type: "action", label: "动作 (Action)", style: "action-card", words: [ {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Play Football"}, {cn:"滑雪", en:"Ski"}, {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Celebrate A Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"}, {cn:"爬树", en:"Climb A Tree"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Do Magic"}, {cn:"抱抱", en:"Hug"} ] }
                 ]
             },
-            // --- VOL.04 美食与生活 ---
             vol4: {
                 title: "美食与生活", subtitle: "Yummy Food & Drinks",
                 groups: [
-                    // 1. 核心动作 (红)
-                    {
-                        type: "food-verb", label: "动作 (Actions)", style: "food-verb-card",
-                        words: [
-                            {cn:"吃", en:"Eat"}, {cn:"喝", en:"Drink"}
-                        ]
-                    },
-                    // 2. 水果 (绿)
-                    {
-                        type: "food-item", label: "水果 (Fruits)", style: "food-item-card",
-                        words: [
-                            {cn:"苹果", en:"Apple"}, {cn:"香蕉", en:"Banana"}, {cn:"草莓", en:"Strawberry"}, {cn:"西瓜", en:"Watermelon"},
-                            {cn:"葡萄", en:"Grape"}, {cn:"橙子", en:"Orange"}, {cn:"蓝莓", en:"Blueberry"}, {cn:"牛油果", en:"Avocado"}
-                        ]
-                    },
-                    // 3. 蔬菜 (绿)
-                    {
-                        type: "food-item", label: "蔬菜 (Vegetables)", style: "food-item-card",
-                        words: [
-                            {cn:"胡萝卜", en:"Carrot"}, {cn:"西兰花", en:"Broccoli"}, {cn:"玉米", en:"Corn"}, {cn:"土豆", en:"Potato"},
-                            {cn:"黄瓜", en:"Cucumber"}, {cn:"西红柿", en:"Tomato"}, {cn:"生菜", en:"Lettuce"}, {cn:"洋葱", en:"Onion"}
-                        ]
-                    },
-                    // 4. 主食 (绿)
-                    {
-                        type: "food-item", label: "主食 (Staples)", style: "food-item-card",
-                        words: [
-                            {cn:"面包", en:"Bread"}, {cn:"米饭", en:"Rice"}, {cn:"面条", en:"Noodles"}, {cn:"披萨", en:"Pizza"},
-                            {cn:"汉堡", en:"Hamburger"}, {cn:"热狗", en:"Hot Dog"}, {cn:"三明治", en:"Sandwich"}, {cn:"寿司", en:"Sushi"}
-                        ]
-                    },
-                    // 5. 零食 (绿)
-                    {
-                        type: "food-item", label: "零食 (Snacks)", style: "food-item-card",
-                        words: [
-                            {cn:"饼干", en:"Cookie"}, {cn:"蛋糕", en:"Cake"}, {cn:"薯片", en:"Potato Chips"}, {cn:"冰淇淋", en:"Ice Cream"},
-                            {cn:"巧克力", en:"Chocolate"}, {cn:"爆米花", en:"Popcorn"}, {cn:"甜甜圈", en:"Donut"}, {cn:"棒棒糖", en:"Lollipop"}
-                        ]
-                    },
-                    // 6. 饮品 (绿)
-                    {
-                        type: "food-item", label: "饮品 (Drinks)", style: "food-item-card",
-                        words: [
-                            {cn:"水", en:"Water"}, {cn:"牛奶", en:"Milk"}, {cn:"果汁", en:"Juice"}, {cn:"果昔", en:"Smoothie"},
-                            {cn:"奶茶", en:"Bubble Tea"}, {cn:"汽水", en:"Soda"}, {cn:"热可可", en:"Hot Cocoa"}, {cn:"咖啡", en:"Coffee"}
-                        ]
-                    }
+                    { type: "food-verb", label: "动作 (Actions)", style: "food-verb-card", words: [ {cn:"吃", en:"Eat"}, {cn:"喝", en:"Drink"} ] },
+                    { type: "food-item", label: "水果 (Fruits)", style: "food-item-card", words: [ {cn:"苹果", en:"Apple"}, {cn:"香蕉", en:"Banana"}, {cn:"草莓", en:"Strawberry"}, {cn:"西瓜", en:"Watermelon"}, {cn:"葡萄", en:"Grape"}, {cn:"橙子", en:"Orange"}, {cn:"蓝莓", en:"Blueberry"}, {cn:"牛油果", en:"Avocado"} ] },
+                    { type: "food-item", label: "蔬菜 (Vegetables)", style: "food-item-card", words: [ {cn:"胡萝卜", en:"Carrot"}, {cn:"西兰花", en:"Broccoli"}, {cn:"玉米", en:"Corn"}, {cn:"土豆", en:"Potato"}, {cn:"黄瓜", en:"Cucumber"}, {cn:"西红柿", en:"Tomato"}, {cn:"生菜", en:"Lettuce"}, {cn:"洋葱", en:"Onion"} ] },
+                    { type: "food-item", label: "主食 (Staples)", style: "food-item-card", words: [ {cn:"面包", en:"Bread"}, {cn:"米饭", en:"Rice"}, {cn:"面条", en:"Noodles"}, {cn:"披萨", en:"Pizza"}, {cn:"汉堡", en:"Hamburger"}, {cn:"热狗", en:"Hot Dog"}, {cn:"三明治", en:"Sandwich"}, {cn:"寿司", en:"Sushi"} ] },
+                    { type: "food-item", label: "零食 (Snacks)", style: "food-item-card", words: [ {cn:"饼干", en:"Cookie"}, {cn:"蛋糕", en:"Cake"}, {cn:"薯片", en:"Potato Chips"}, {cn:"冰淇淋", en:"Ice Cream"}, {cn:"巧克力", en:"Chocolate"}, {cn:"爆米花", en:"Popcorn"}, {cn:"甜甜圈", en:"Donut"}, {cn:"棒棒糖", en:"Lollipop"} ] },
+                    { type: "food-item", label: "饮品 (Drinks)", style: "food-item-card", words: [ {cn:"水", en:"Water"}, {cn:"牛奶", en:"Milk"}, {cn:"果汁", en:"Juice"}, {cn:"果昔", en:"Smoothie"}, {cn:"奶茶", en:"Bubble Tea"}, {cn:"汽水", en:"Soda"}, {cn:"热可可", en:"Hot Cocoa"}, {cn:"咖啡", en:"Coffee"} ] }
+                ]
+            },
+            // --- VOL.05 交通内容 ---
+            vol5: {
+                title: "交通工具", subtitle: "Vehicles & Transport",
+                groups: [
+                    { type: "trans-verb", label: "动作 (Actions)", style: "trans-verb-card", words: [ {cn:"开", en:"Drive"}, {cn:"骑", en:"Ride"} ] },
+                    { type: "trans-item", label: "开：驾驶类 (Drive)", style: "trans-item-card", words: [ {cn:"汽车", en:"Car"}, {cn:"警车", en:"Police Car"}, {cn:"垃圾车", en:"Garbage Truck"}, {cn:"消防车", en:"Fire Truck"}, {cn:"赛车", en:"Race Car"}, {cn:"校车", en:"School Bus"}, {cn:"救护车", en:"Ambulance"}, {cn:"碰碰车", en:"Bumper Car"} ] },
+                    { type: "trans-item", label: "骑：跨坐类 (Ride)", style: "trans-item-card", words: [ {cn:"自行车", en:"Bicycle"}, {cn:"摩托车", en:"Motorcycle"}, {cn:"滑板车", en:"Scooter"}, {cn:"平衡车", en:"Balance Bike"}, {cn:"三轮车", en:"Tricycle"}, {cn:"独轮车", en:"Unicycle"}, {cn:"马", en:"Horse"}, {cn:"扫帚", en:"Broom"} ] }
                 ]
             }
         };
 
         function renderAll() {
-            ['vol1', 'vol2', 'vol3', 'vol4'].forEach(volKey => {
+            ['vol1', 'vol2', 'vol3', 'vol4', 'vol5'].forEach(volKey => {
                 const container = document.getElementById('container-' + volKey);
                 const data = DB[volKey];
                 let html = `
@@ -227,13 +202,4 @@
             if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
             btn.classList.add('playing'); currentBtn = btn;
             
-            const audio = new Audio(`audio/${word}.mp3`);
-            currentAudio = audio;
-            audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
-            audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
-        }
-        
-        renderAll();
-    </script>
-</body>
-</html>
+            const audio = new Audio(`audio/${word
