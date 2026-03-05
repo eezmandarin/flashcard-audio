@@ -46,12 +46,13 @@
         .cat-title.food-verb { background-color: var(--color-food-verb); }
         .cat-title.food-item { background-color: var(--color-food-all); } 
 
-        /* --- VOL 5 交通样式 (修复素颜问题) --- */
+        /* --- VOL 5 交通样式 (终极强制边框版) --- */
         .cat-title.trans-verb { background-color: #ff6b6b; color: white; }
         .cat-title.trans-item { background-color: #00167a; color: white; }
-        /* 边框加上您选的颜色，背景设为纯白，打造完美闪卡感 */
-        .trans-verb-card { border-color: #ff6b6b; background: #ffffff; }
-        .trans-item-card { border-color: #00167a; background: #ffffff; }
+        
+        /* 使用 !important 强力胶，强制电脑画出2像素的实线边框，并把底色铺白 */
+        .trans-verb-card { border: 2px solid #ff6b6b !important; background: #ffffff !important; }
+        .trans-item-card { border: 2px solid #00167a !important; background: #ffffff !important; }
 
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
@@ -82,6 +83,7 @@
         @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
 
         .footer-promo { text-align: center; margin-top: 10px; padding-bottom: 40px; font-size: 0.8rem; color: #ccc; line-height: 1.8; }
+        /* 已经为您替换成了全新的 eezmandarin 品牌链接 */
         .footer-promo a { color: #b0b0b0; text-decoration: none; border-bottom: 1px dashed #ddd; transition: color 0.2s; }
         .footer-promo a:active { color: #888; border-bottom-style: solid; }
     </style>
@@ -107,7 +109,7 @@
 
     <div class="footer-promo">
         Want to keep playing?<br>
-        <a href="https://marvelous617.gumroad.com/" target="_blank">See the full EezMandarin kit →</a>
+        <a href="https://eezmandarin.gumroad.com/l/dailylife" target="_blank">See the full EezMandarin kit →</a>
     </div>
 
     <script>
@@ -147,7 +149,6 @@
                     { type: "food-item", label: "饮品 (Drinks)", style: "food-item-card", words: [ {cn:"水", en:"Water"}, {cn:"牛奶", en:"Milk"}, {cn:"果汁", en:"Juice"}, {cn:"果昔", en:"Smoothie"}, {cn:"奶茶", en:"Bubble Tea"}, {cn:"汽水", en:"Soda"}, {cn:"热可可", en:"Hot Cocoa"}, {cn:"咖啡", en:"Coffee"} ] }
                 ]
             },
-            // --- VOL.05 交通内容 (精准匹配您的词性和分类) ---
             vol5: {
                 title: "交通工具", subtitle: "Vehicles & Transport",
                 groups: [
