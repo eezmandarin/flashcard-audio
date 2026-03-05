@@ -46,11 +46,12 @@
         .cat-title.food-verb { background-color: var(--color-food-verb); }
         .cat-title.food-item { background-color: var(--color-food-all); } 
 
-        /* --- VOL 5 交通样式 --- */
+        /* --- VOL 5 交通样式 (修复素颜问题) --- */
         .cat-title.trans-verb { background-color: #ff6b6b; color: white; }
         .cat-title.trans-item { background-color: #00167a; color: white; }
-        .trans-verb-card { border-color: #ff6b6b; background: #fff5f5; }
-        .trans-item-card { border-color: #00167a; background: #f4f8ff; }
+        /* 边框加上您选的颜色，背景设为纯白，打造完美闪卡感 */
+        .trans-verb-card { border-color: #ff6b6b; background: #ffffff; }
+        .trans-item-card { border-color: #00167a; background: #ffffff; }
 
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
@@ -146,13 +147,13 @@
                     { type: "food-item", label: "饮品 (Drinks)", style: "food-item-card", words: [ {cn:"水", en:"Water"}, {cn:"牛奶", en:"Milk"}, {cn:"果汁", en:"Juice"}, {cn:"果昔", en:"Smoothie"}, {cn:"奶茶", en:"Bubble Tea"}, {cn:"汽水", en:"Soda"}, {cn:"热可可", en:"Hot Cocoa"}, {cn:"咖啡", en:"Coffee"} ] }
                 ]
             },
-            // --- VOL.05 交通内容 ---
+            // --- VOL.05 交通内容 (精准匹配您的词性和分类) ---
             vol5: {
                 title: "交通工具", subtitle: "Vehicles & Transport",
                 groups: [
                     { type: "trans-verb", label: "动作 (Actions)", style: "trans-verb-card", words: [ {cn:"开", en:"Drive"}, {cn:"骑", en:"Ride"} ] },
-                    { type: "trans-item", label: "开：驾驶类 (Drive)", style: "trans-item-card", words: [ {cn:"汽车", en:"Car"}, {cn:"警车", en:"Police Car"}, {cn:"垃圾车", en:"Garbage Truck"}, {cn:"消防车", en:"Fire Truck"}, {cn:"赛车", en:"Race Car"}, {cn:"校车", en:"School Bus"}, {cn:"救护车", en:"Ambulance"}, {cn:"碰碰车", en:"Bumper Car"} ] },
-                    { type: "trans-item", label: "骑：跨坐类 (Ride)", style: "trans-item-card", words: [ {cn:"自行车", en:"Bicycle"}, {cn:"摩托车", en:"Motorcycle"}, {cn:"滑板车", en:"Scooter"}, {cn:"平衡车", en:"Balance Bike"}, {cn:"三轮车", en:"Tricycle"}, {cn:"独轮车", en:"Unicycle"}, {cn:"马", en:"Horse"}, {cn:"扫帚", en:"Broom"} ] }
+                    { type: "trans-item", label: "开：驾驶类 (Drive - Cabin & Cockpit)", style: "trans-item-card", words: [ {cn:"汽车", en:"Car"}, {cn:"警车", en:"Police Car"}, {cn:"垃圾车", en:"Garbage Truck"}, {cn:"消防车", en:"Fire Truck"}, {cn:"赛车", en:"Race Car"}, {cn:"校车", en:"School Bus"}, {cn:"救护车", en:"Ambulance"}, {cn:"碰碰车", en:"Bumper Car"} ] },
+                    { type: "trans-item", label: "骑：跨坐类 (Ride - Saddle & Handlebars)", style: "trans-item-card", words: [ {cn:"自行车", en:"Bicycle"}, {cn:"摩托车", en:"Motorcycle"}, {cn:"滑板车", en:"Scooter"}, {cn:"平衡车", en:"Balance Bike"}, {cn:"三轮车", en:"Tricycle"}, {cn:"独轮车", en:"Unicycle"}, {cn:"马", en:"Horse"}, {cn:"扫帚", en:"Broom"} ] }
                 ]
             }
         };
