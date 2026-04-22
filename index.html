@@ -17,6 +17,9 @@
             /* --- VOL 4 新配色方案 --- */
             --color-food-verb: #FF8066;  
             --color-food-all:  #7ed957;  
+            
+            /* --- VOL 6 新配色方案 --- */
+            --color-mood-main: #ffbd59;
         }
         body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
@@ -53,6 +56,16 @@
         /* 使用 !important 强力胶，强制电脑画出2像素的实线边框，并把底色铺白 */
         .trans-verb-card { border: 2px solid #ff6b6b !important; background: #ffffff !important; }
         .trans-item-card { border: 2px solid #00167a !important; background: #ffffff !important; }
+
+        /* --- VOL 6 心情样式 --- */
+        .cat-title.mood-deg { background-color: #999999; color: white; }
+        .cat-title.mood-pos { background-color: var(--color-mood-main); color: #7a6300; }
+        .cat-title.mood-neg { background-color: #ff8066; color: white; }
+        .cat-title.mood-body { background-color: #7ed957; color: white; }
+        .cat-title.mood-env { background-color: #0cc0df; color: white; }
+        
+        /* VOL 6 专属 5px 橙色边框闪卡 */
+        .mood-card { border: 5px solid #ffbd59 !important; background: #ffffff !important; border-radius: 16px !important; }
 
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
@@ -97,6 +110,7 @@
         <button class="tab-btn" onclick="switchVol('vol3')" data-vol="vol3">VOL.03</button>
         <button class="tab-btn" onclick="switchVol('vol4')" data-vol="vol4">VOL.04</button>
         <button class="tab-btn" onclick="switchVol('vol5')" data-vol="vol5">VOL.05</button>
+        <button class="tab-btn" onclick="switchVol('vol6')" data-vol="vol6">VOL.06</button>
     </div>
     
     <div class="content-area">
@@ -105,6 +119,7 @@
         <div id="container-vol3" class="vol-section"></div>
         <div id="container-vol4" class="vol-section"></div>
         <div id="container-vol5" class="vol-section"></div>
+        <div id="container-vol6" class="vol-section"></div>
     </div>
 
     <div class="footer-promo">
@@ -156,11 +171,22 @@
                     { type: "trans-item", label: "开：驾驶类 (Drive - Cabin & Cockpit)", style: "trans-item-card", words: [ {cn:"汽车", en:"Car"}, {cn:"警车", en:"Police Car"}, {cn:"垃圾车", en:"Garbage Truck"}, {cn:"消防车", en:"Fire Truck"}, {cn:"赛车", en:"Race Car"}, {cn:"校车", en:"School Bus"}, {cn:"救护车", en:"Ambulance"}, {cn:"碰碰车", en:"Bumper Car"} ] },
                     { type: "trans-item", label: "骑：跨坐类 (Ride - Saddle & Handlebars)", style: "trans-item-card", words: [ {cn:"自行车", en:"Bicycle"}, {cn:"摩托车", en:"Motorcycle"}, {cn:"滑板车", en:"Scooter"}, {cn:"平衡车", en:"Balance Bike"}, {cn:"三轮车", en:"Tricycle"}, {cn:"独轮车", en:"Unicycle"}, {cn:"马", en:"Horse"}, {cn:"扫帚", en:"Broom"} ] }
                 ]
+            },
+            vol6: {
+                title: "心情变化", subtitle: "Mood & Feelings",
+                groups: [
+                    { type: "mood-deg", label: "程度与否定 (Degree & Negation)", style: "mood-card", words: [ {cn:"很", en:"Very"}, {cn:"不", en:"Not"} ] },
+                    { type: "mood-pos", label: "悦：正向情绪 (Positive - Joy & Satisfaction)", style: "mood-card", words: [ {cn:"开心", en:"Happy"}, {cn:"高兴", en:"Happy"}, {cn:"兴奋", en:"Excited"}, {cn:"激动", en:"Excited"}, {cn:"满足", en:"Satisfied"}, {cn:"期待", en:"Look forward"}, {cn:"舒服", en:"Comfortable"}, {cn:"轻松", en:"Relaxed"} ] },
+                    { type: "mood-neg", label: "忧：负向情绪 (Negative - Sadness & Anxiety)", style: "mood-card", words: [ {cn:"难过", en:"Sad"}, {cn:"伤心", en:"Sad"}, {cn:"生气", en:"Angry"}, {cn:"烦", en:"Annoyed"}, {cn:"难受", en:"Uncomfortable"}, {cn:"无奈", en:"Stuck"}, {cn:"害羞", en:"Shy"}, {cn:"紧张", en:"Nervous"}, {cn:"害怕", en:"Scared"}, {cn:"担心", en:"Worried"}, {cn:"着急", en:"Worried"} ] },
+                    { type: "mood-body", label: "觉：生理感受 (Sensation - Body Signals)", style: "mood-card", words: [ {cn:"累", en:"Tired"}, {cn:"困", en:"Sleepy"}, {cn:"饿", en:"Hungry"}, {cn:"渴", en:"Thirsty"} ] },
+                    { type: "mood-env", label: "境：状态与环境 (Environment & States)", style: "mood-card", words: [ {cn:"冷", en:"Cold"}, {cn:"热", en:"Hot"}, {cn:"凉快", en:"Cool"}, {cn:"暖和", en:"Warm"}, {cn:"无聊", en:"Bored"}, {cn:"安静", en:"Quiet"}, {cn:"忙", en:"Busy"} ] }
+                ]
             }
         };
 
         function renderAll() {
-            ['vol1', 'vol2', 'vol3', 'vol4', 'vol5'].forEach(volKey => {
+            // 这里修改为包含 vol6
+            ['vol1', 'vol2', 'vol3', 'vol4', 'vol5', 'vol6'].forEach(volKey => {
                 const container = document.getElementById('container-' + volKey);
                 const data = DB[volKey];
                 let html = `
