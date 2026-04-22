@@ -49,23 +49,28 @@
         .cat-title.food-verb { background-color: var(--color-food-verb); }
         .cat-title.food-item { background-color: var(--color-food-all); } 
 
-        /* --- VOL 5 交通样式 (终极强制边框版) --- */
+        /* --- VOL 5 交通样式 (强制边框版) --- */
         .cat-title.trans-verb { background-color: #ff6b6b; color: white; }
         .cat-title.trans-item { background-color: #00167a; color: white; }
         
-        /* 使用 !important 强力胶，强制电脑画出2像素的实线边框，并把底色铺白 */
         .trans-verb-card { border: 2px solid #ff6b6b !important; background: #ffffff !important; }
         .trans-item-card { border: 2px solid #00167a !important; background: #ffffff !important; }
 
-        /* --- VOL 6 心情样式 --- */
-        .cat-title.mood-deg { background-color: #999999; color: white; }
-        .cat-title.mood-pos { background-color: var(--color-mood-main); color: #7a6300; }
-        .cat-title.mood-neg { background-color: #ff8066; color: white; }
-        .cat-title.mood-body { background-color: #7ed957; color: white; }
-        .cat-title.mood-env { background-color: #0cc0df; color: white; }
+        /* --- VOL 6 心情样式 (全部统一颜色和2px粗细) --- */
+        .cat-title.mood-deg,
+        .cat-title.mood-pos,
+        .cat-title.mood-neg,
+        .cat-title.mood-body,
+        .cat-title.mood-env { 
+            background-color: var(--color-mood-main); 
+            color: white; 
+        }
         
-        /* VOL 6 专属 5px 橙色边框闪卡 */
-        .mood-card { border: 5px solid #ffbd59 !important; background: #ffffff !important; border-radius: 16px !important; }
+        /* VOL 6 专属橙色边框闪卡 (恢复2px粗细，和其它保持一致) */
+        .mood-card { 
+            border: 2px solid var(--color-mood-main) !important; 
+            background: #ffffff !important; 
+        }
 
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
@@ -185,7 +190,6 @@
         };
 
         function renderAll() {
-            // 这里修改为包含 vol6
             ['vol1', 'vol2', 'vol3', 'vol4', 'vol5', 'vol6'].forEach(volKey => {
                 const container = document.getElementById('container-' + volKey);
                 const data = DB[volKey];
