@@ -26,6 +26,9 @@
 
             /* --- VOL 8 新配色方案 (时间天气) --- */
             --color-time-main: #b4b4b4;
+
+            /* --- VOL 9 新配色方案 (藏起来了) --- */
+            --color-hide-main: #ba99ff;
         }
         body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         
@@ -70,6 +73,10 @@
         .cat-title.time-cat { background-color: var(--color-time-main); color: white; }
         .time-card { border: 2px solid var(--color-time-main) !important; background: #ffffff !important; }
 
+        /* VOL 9 藏起来了样式 (丁香紫) */
+        .cat-title.hide-cat { background-color: var(--color-hide-main); color: white; }
+        .hide-card { border: 2px solid var(--color-hide-main) !important; background: #ffffff !important; }
+
         .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
         
         .word-card { 
@@ -112,6 +119,7 @@
         <button class="tab-btn" onclick="switchVol('vol6')" data-vol="vol6">VOL.06</button>
         <button class="tab-btn" onclick="switchVol('vol7')" data-vol="vol7">VOL.07</button>
         <button class="tab-btn" onclick="switchVol('vol8')" data-vol="vol8">VOL.08</button>
+        <button class="tab-btn" onclick="switchVol('vol9')" data-vol="vol9">VOL.09</button>
     </div>
     
     <div class="content-area">
@@ -123,6 +131,7 @@
         <div id="container-vol6" class="vol-section"></div>
         <div id="container-vol7" class="vol-section"></div>
         <div id="container-vol8" class="vol-section"></div>
+        <div id="container-vol9" class="vol-section"></div>
     </div>
 
     <div class="footer-promo">
@@ -200,11 +209,19 @@
                     { type: "time-cat", label: "季节与天气 (Seasons & Weather)", style: "time-card", words: [ {cn:"春天", en:"Spring"}, {cn:"夏天", en:"Summer"}, {cn:"秋天", en:"Fall"}, {cn:"冬天", en:"Winter"}, {cn:"晴天", en:"Sunny Day"}, {cn:"下雪天", en:"Snowy Day"}, {cn:"下雨天", en:"Rainy Day"} ] },
                     { type: "time-cat", label: "特殊时刻 (Special Moments)", style: "time-card", words: [ {cn:"生日", en:"Birthday"}, {cn:"放学后", en:"After School"}, {cn:"睡觉前", en:"Before Bed"} ] }
                 ]
+            },
+            vol9: {
+                title: "藏起来了", subtitle: "Hide and Place",
+                groups: [
+                    { type: "hide-cat", label: "方位与空间 (Positions)", style: "hide-card", words: [ {cn:"在……上面", en:"on"}, {cn:"在……下面", en:"under"}, {cn:"在……里面", en:"in"}, {cn:"在……中间", en:"in the middle of"}, {cn:"在……前面", en:"in front of"}, {cn:"在……后面", en:"behind"}, {cn:"在……左边", en:"on the left of"}, {cn:"在……右边", en:"on the right of"} ] },
+                    { type: "hide-cat", label: "家具与物品 (Furniture & Items)", style: "hide-card", words: [ {cn:"书桌", en:"desk"}, {cn:"餐桌", en:"dining table"}, {cn:"椅子", en:"chair"}, {cn:"书架", en:"bookshelf"}, {cn:"衣柜", en:"wardrobe"}, {cn:"抽屉", en:"drawer"}, {cn:"箱子", en:"box"}, {cn:"篮子", en:"basket"}, {cn:"冰箱", en:"fridge"} ] },
+                    { type: "hide-cat", label: "户外与房间 (Spaces & Outdoors)", style: "hide-card", words: [ {cn:"房间", en:"room"}, {cn:"帐篷", en:"tent"}, {cn:"沙坑", en:"sandbox"}, {cn:"大树", en:"tree"}, {cn:"狗窝", en:"doghouse"} ] }
+                ]
             }
         };
 
         function renderAll() {
-            ['vol1', 'vol2', 'vol3', 'vol4', 'vol5', 'vol6', 'vol7', 'vol8'].forEach(volKey => {
+            ['vol1', 'vol2', 'vol3', 'vol4', 'vol5', 'vol6', 'vol7', 'vol8', 'vol9'].forEach(volKey => {
                 const container = document.getElementById('container-' + volKey);
                 const data = DB[volKey];
                 let html = `
