@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Set 3：Magical Play Sentence Set</title>
+    <style>
+        :root { 
+            --bg-paper: #fdfbf7; 
+            --text-main: #555555;
+            --color-person: #0cc0df; 
+            --color-place: #ffde59; 
+            --color-action: #ff6b6b; 
+            --color-food-verb: #FF8066;  
+            --color-food-all:  #7ed957;  
+            --color-mood-main: #ffbd59;
+            --color-things-main: #cdb4db;
+            --color-time-main: #b4b4b4;
+            --color-hide-main: #ba99ff;
+        }
+        body { background-color: var(--bg-paper); font-family: "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        h1 { text-align: center; margin: 15px 0 5px; font-size: 1.1rem; opacity: 0.6; color: #666; }
+        
+        .nav-tabs { display: flex; justify-content: center; gap: 6px; padding: 8px 10px; position: sticky; top: 0; background: rgba(253, 251, 247, 0.98); z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.02); flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 60px; padding: 12px 0; border: none; background: #eee; border-radius: 8px; font-size: 0.9rem; font-weight: 800; color: #999; cursor: pointer; transition: 0.2s; }
+        .tab-btn.active { background: var(--text-main); color: white; transform: translateY(-1px); }
+        
+        .content-area { padding: 5px 8px 20px; max-width: 600px; margin: 0 auto; }
+        .vol-section { display: none; } .vol-section.active { display: block; animation: fadeIn 0.3s ease; }
+
+        .vol-header { text-align: center; margin: 15px 0; padding-bottom: 10px; border-bottom: 2px dashed #ddd; }
+        .vol-header h2 { margin: 0; font-size: 1.2rem; color: #333; }
+        .vol-header p { margin: 5px 0 0; font-size: 0.9rem; color: #888; font-family: Georgia, serif; font-style: italic; }
+
+        .cat-title { margin: 25px 0 10px; padding: 5px 10px; font-size: 0.95rem; font-weight: 800; border-radius: 6px; display: inline-block; color: white; }
+        
+        .cat-title.person { background-color: var(--color-person); }
+        .cat-title.place { background-color: var(--color-place); color: #7a6300; } 
+        .cat-title.action { background-color: var(--color-action); }
+        .cat-title.food-verb { background-color: var(--color-food-verb); }
+        .cat-title.food-item { background-color: var(--color-food-all); } 
+        .cat-title.trans-verb { background-color: #ff6b6b; color: white; }
+        .cat-title.trans-item { background-color: #00167a; color: white; }
+        
+        .trans-verb-card { border: 2px solid #ff6b6b !important; background: #ffffff !important; }
+        .trans-item-card { border: 2px solid #00167a !important; background: #ffffff !important; }
+        .cat-title.mood-cat { background-color: var(--color-mood-main); color: white; }
+        .mood-card { border: 2px solid var(--color-mood-main) !important; background: #ffffff !important; }
+        .cat-title.things-cat { background-color: var(--color-things-main); color: white; }
+        .things-card { border: 2px solid var(--color-things-main) !important; background: #ffffff !important; }
+        .cat-title.time-cat { background-color: var(--color-time-main); color: white; }
+        .time-card { border: 2px solid var(--color-time-main) !important; background: #ffffff !important; }
+        .cat-title.hide-cat { background-color: var(--color-hide-main); color: white; }
+        .hide-card { border: 2px solid var(--color-hide-main) !important; background: #ffffff !important; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        
+        .word-card { 
+            aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            background: white; border: 2px solid transparent; cursor: pointer; position: relative; 
+            box-shadow: 1px 2px 5px rgba(0,0,0,0.05); border-radius: 12px; user-select: none; padding: 2px; text-align: center;
+        }
+        .word-card:active { transform: scale(0.92); }
+        .word-card.playing { animation: pulse 1s infinite; border-width: 3px; }
+        
+        .cn-text { font-weight: 800; line-height: 1.1; margin-bottom: 4px; color: var(--text-main); }
+        .en-text { font-weight: normal; line-height: 1.0; opacity: 0.8; word-wrap: break-word; overflow: hidden; color: #777; }
+        
+        .size-big .cn-text { font-size: 1.35rem; } .size-big .en-text { font-size: 0.65rem; transform: scale(0.9); } 
+        .size-small .cn-text { font-size: 1.05rem; } .size-small .en-text { font-size: 0.6rem; transform: scale(0.85); }
+
+        .person-card { border-color: var(--color-person); background: #f4fcff; }
+        .place-card { border-color: var(--color-place); background: #fffdf5; }
+        .action-card { border-color: var(--color-action); background: #fff5f5; }
+        .food-verb-card { border-color: var(--color-food-verb); background: #fff5f2; } 
+        .food-item-card { border-color: var(--color-food-all); background: #f4fce8; } 
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .footer-promo { text-align: center; margin-top: 10px; padding-bottom: 40px; font-size: 0.8rem; color: #ccc; line-height: 1.8; }
+        .footer-promo a { color: #b0b0b0; text-decoration: none; border-bottom: 1px dashed #ddd; transition: color 0.2s; }
+        .footer-promo a:active { color: #888; border-bottom-style: solid; }
+    </style>
+</head>
+<body>
+    <h1>Set 3：Magical Play Sentence Set</h1>
+    
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchVol('vol3')" data-vol="vol3">VOL.03</button>
+        <button class="tab-btn" onclick="switchVol('vol6')" data-vol="vol6">VOL.06</button>
+        <button class="tab-btn" onclick="switchVol('vol9')" data-vol="vol9">VOL.09</button>
+    </div>
+    
+    <div class="content-area">
+        <div id="container-vol3" class="vol-section active"></div>
+        <div id="container-vol6" class="vol-section"></div>
+        <div id="container-vol9" class="vol-section"></div>
+    </div>
+
+    <div class="footer-promo">
+        Want to keep playing?<br>
+        <a href="https://eezmandarin.gumroad.com/l/dailylife" target="_blank">See the full EezMandarin kit →</a>
+    </div>
+
+    <script>
+        const DB = {
+            vol1: { title: "日常生活", subtitle: "Family & Friends", groups: [ { type: "person", label: "人物 (Person)", style: "person-card", words: [ {cn:"爸爸", en:"Dad"}, {cn:"妈妈", en:"Mom"}, {cn:"哥哥", en:"Older Brother"}, {cn:"姐姐", en:"Older Sister"}, {cn:"弟弟", en:"Younger Brother"}, {cn:"妹妹", en:"Younger Sister"}, {cn:"爷爷", en:"Grandpa"}, {cn:"奶奶", en:"Grandma"}, {cn:"老师", en:"Teacher"}, {cn:"小朋友", en:"Child"}, {cn:"小猫", en:"Kitten"}, {cn:"小狗", en:"Puppy"} ] }, { type: "place", label: "地点 (Place)", style: "place-card", words: [ {cn:"家", en:"Home"}, {cn:"客厅", en:"Living Room"}, {cn:"卧室", en:"Bedroom"}, {cn:"厨房", en:"Kitchen"}, {cn:"卫生间", en:"Bathroom"}, {cn:"阳台", en:"Balcony"}, {cn:"餐厅", en:"Dining Room"}, {cn:"书房", en:"Study Room"}, {cn:"幼儿园", en:"Kindergarten"}, {cn:"教室", en:"Classroom"}, {cn:"花园", en:"Garden"}, {cn:"门口", en:"Doorway"} ] }, { type: "action", label: "动作 (Action)", style: "action-card", words: [ {cn:"吃饭", en:"Eat"}, {cn:"喝水", en:"Drink"}, {cn:"睡觉", en:"Sleep"}, {cn:"刷牙", en:"Brush Teeth"}, {cn:"洗脸", en:"Wash Face"}, {cn:"洗手", en:"Wash Hands"}, {cn:"洗澡", en:"Take A Bath"}, {cn:"上厕所", en:"Use The Bathroom"}, {cn:"看书", en:"Read"}, {cn:"写作业", en:"Do Homework"}, {cn:"玩游戏", en:"Play Games"}, {cn:"看电视", en:"Watch TV"} ] } ] },
+            vol2: { title: "城市英雄", subtitle: "Heroes & Hobbies", groups: [ { type: "person", label: "人物 (Person)", style: "person-card", words: [ {cn:"医生", en:"Doctor"}, {cn:"护士", en:"Nurse"}, {cn:"厨师", en:"Chef"}, {cn:"警察", en:"Police Officer"}, {cn:"司机", en:"Driver"}, {cn:"农夫", en:"Farmer"}, {cn:"消防员", en:"Firefighter"}, {cn:"运动员", en:"Athlete"}, {cn:"快递员", en:"Delivery Person"}, {cn:"服务员", en:"Server"}, {cn:"游客", en:"Tourist"}, {cn:"画家", en:"Painter"} ] }, { type: "place", label: "地点 (Place)", style: "place-card", words: [ {cn:"医院", en:"Hospital"}, {cn:"警察局", en:"Police Station"}, {cn:"消防站", en:"Fire Station"}, {cn:"电影院", en:"Cinema"}, {cn:"图书馆", en:"Library"}, {cn:"游乐场", en:"Playground"}, {cn:"游泳池", en:"Swimming Pool"}, {cn:"超市", en:"Supermarket"}, {cn:"饭店", en:"Restaurant"}, {cn:"商场", en:"Shopping Mall"}, {cn:"公园", en:"Park"}, {cn:"书店", en:"Bookstore"} ] }, { type: "action", label: "动作 (Action)", style: "action-card", words: [ {cn:"工作", en:"Work"}, {cn:"看病", en:"See A Doctor"}, {cn:"开车", en:"Drive"}, {cn:"做饭", en:"Cook"}, {cn:"画画儿", en:"Draw"}, {cn:"唱歌", en:"Sing"}, {cn:"跳舞", en:"Dance"}, {cn:"听音乐", en:"Listen To Music"}, {cn:"打电话", en:"Make A Call"}, {cn:"骑车", en:"Ride A Bike"}, {cn:"买东西", en:"Go Shopping"}, {cn:"扫地", en:"Sweep The Floor"} ] } ] },
+            vol3: { title: "奇幻冒险", subtitle: "Magic & Monsters", groups: [ { type: "person", label: "人物 (Person)", style: "person-card", words: [ {cn:"王子", en:"Prince"}, {cn:"公主", en:"Princess"}, {cn:"怪兽", en:"Monster"}, {cn:"海盗", en:"Pirate"}, {cn:"恐龙", en:"Dinosaur"}, {cn:"外星人", en:"Alien"}, {cn:"骑士", en:"Knight"}, {cn:"巫师", en:"Wizard"}, {cn:"小丑", en:"Clown"}, {cn:"魔术师", en:"Magician"}, {cn:"宇航员", en:"Astronaut"}, {cn:"超级英雄", en:"Superhero"} ] }, { type: "place", label: "地点 (Place)", style: "place-card", words: [ {cn:"动物园", en:"Zoo"}, {cn:"海边", en:"Seaside"}, {cn:"森林", en:"Forest"}, {cn:"太空", en:"Space"}, {cn:"城堡", en:"Castle"}, {cn:"山顶", en:"Mountaintop"}, {cn:"天空", en:"Sky"}, {cn:"山洞", en:"Cave"}, {cn:"海底", en:"Under The Sea"}, {cn:"农场", en:"Farm"}, {cn:"沙漠", en:"Desert"}, {cn:"雪地", en:"Snowfield"} ] }, { type: "action", label: "动作 (Action)", style: "action-card", words: [ {cn:"跑步", en:"Run"}, {cn:"游泳", en:"Swim"}, {cn:"踢球", en:"Play Football"}, {cn:"滑雪", en:"Ski"}, {cn:"聊天", en:"Chat"}, {cn:"过生日", en:"Celebrate A Birthday"}, {cn:"飞", en:"Fly"}, {cn:"大笑", en:"Laugh"}, {cn:"爬树", en:"Climb A Tree"}, {cn:"放屁", en:"Fart"}, {cn:"变魔术", en:"Do Magic"}, {cn:"抱抱", en:"Hug"} ] } ] },
+            vol4: { title: "美食与生活", subtitle: "Yummy Food & Drinks", groups: [ { type: "food-verb", label: "动作 (Actions)", style: "food-verb-card", words: [ {cn:"吃", en:"Eat"}, {cn:"喝", en:"Drink"} ] }, { type: "food-item", label: "水果 (Fruits)", style: "food-item-card", words: [ {cn:"苹果", en:"Apple"}, {cn:"香蕉", en:"Banana"}, {cn:"草莓", en:"Strawberry"}, {cn:"西瓜", en:"Watermelon"}, {cn:"葡萄", en:"Grape"}, {cn:"橙子", en:"Orange"}, {cn:"蓝莓", en:"Blueberry"}, {cn:"牛油果", en:"Avocado"} ] }, { type: "food-item", label: "蔬菜 (Vegetables)", style: "food-item-card", words: [ {cn:"胡萝卜", en:"Carrot"}, {cn:"西兰花", en:"Broccoli"}, {cn:"玉米", en:"Corn"}, {cn:"土豆", en:"Potato"}, {cn:"黄瓜", en:"Cucumber"}, {cn:"西红柿", en:"Tomato"}, {cn:"生菜", en:"Lettuce"}, {cn:"洋葱", en:"Onion"} ] }, { type: "food-item", label: "主食 (Staples)", style: "food-item-card", words: [ {cn:"面包", en:"Bread"}, {cn:"米饭", en:"Rice"}, {cn:"面条", en:"Noodles"}, {cn:"披萨", en:"Pizza"}, {cn:"汉堡", en:"Hamburger"}, {cn:"热狗", en:"Hot Dog"}, {cn:"三明治", en:"Sandwich"}, {cn:"寿司", en:"Sushi"} ] }, { type: "food-item", label: "零食 (Snacks)", style: "food-item-card", words: [ {cn:"饼干", en:"Cookie"}, {cn:"蛋糕", en:"Cake"}, {cn:"薯片", en:"Potato Chips"}, {cn:"冰淇淋", en:"Ice Cream"}, {cn:"巧克力", en:"Chocolate"}, {cn:"爆米花", en:"Popcorn"}, {cn:"甜甜圈", en:"Donut"}, {cn:"棒棒糖", en:"Lollipop"} ] }, { type: "food-item", label: "饮品 (Drinks)", style: "food-item-card", words: [ {cn:"水", en:"Water"}, {cn:"牛奶", en:"Milk"}, {cn:"果汁", en:"Juice"}, {cn:"果昔", en:"Smoothie"}, {cn:"奶茶", en:"Bubble Tea"}, {cn:"汽水", en:"Soda"}, {cn:"热可可", en:"Hot Cocoa"}, {cn:"咖啡", en:"Coffee"} ] } ] },
+            vol5: { title: "交通工具", subtitle: "Vehicles & Transport", groups: [ { type: "trans-verb", label: "动作 (Actions)", style: "trans-verb-card", words: [ {cn:"开", en:"Drive"}, {cn:"骑", en:"Ride"} ] }, { type: "trans-item", label: "开：驾驶类 (Drive - Cabin & Cockpit)", style: "trans-item-card", words: [ {cn:"汽车", en:"Car"}, {cn:"警车", en:"Police Car"}, {cn:"垃圾车", en:"Garbage Truck"}, {cn:"消防车", en:"Fire Truck"}, {cn:"赛车", en:"Race Car"}, {cn:"校车", en:"School Bus"}, {cn:"救护车", en:"Ambulance"}, {cn:"碰碰车", en:"Bumper Car"} ] }, { type: "trans-item", label: "骑：跨坐类 (Ride - Saddle & Handlebars)", style: "trans-item-card", words: [ {cn:"自行车", en:"Bicycle"}, {cn:"摩托车", en:"Motorcycle"}, {cn:"滑板车", en:"Scooter"}, {cn:"平衡车", en:"Balance Bike"}, {cn:"三轮车", en:"Tricycle"}, {cn:"独轮车", en:"Unicycle"}, {cn:"马", en:"Horse"}, {cn:"扫帚", en:"Broom"} ] } ] },
+            vol6: { title: "心情变化", subtitle: "Mood & Feelings", groups: [ { type: "mood-cat", label: "程度与否定 (Degree & Negation)", style: "mood-card", words: [ {cn:"很", en:"Very"}, {cn:"不", en:"Not"} ] }, { type: "mood-cat", label: "悦：正向情绪 (Positive - Joy & Satisfaction)", style: "mood-card", words: [ {cn:"开心", en:"Happy"}, {cn:"高兴", en:"Happy"}, {cn:"兴奋", en:"Excited"}, {cn:"激动", en:"Excited"}, {cn:"满足", en:"Satisfied"}, {cn:"期待", en:"Look forward"}, {cn:"舒服", en:"Comfortable"}, {cn:"轻松", en:"Relaxed"} ] }, { type: "mood-cat", label: "忧：负向情绪 (Negative - Sadness & Anxiety)", style: "mood-card", words: [ {cn:"难过", en:"Sad"}, {cn:"伤心", en:"Sad"}, {cn:"生气", en:"Angry"}, {cn:"烦", en:"Annoyed"}, {cn:"难受", en:"Uncomfortable"}, {cn:"无奈", en:"Stuck"}, {cn:"害羞", en:"Shy"}, {cn:"紧张", en:"Nervous"}, {cn:"害怕", en:"Scared"}, {cn:"担心", en:"Worried"}, {cn:"着急", en:"Worried"} ] }, { type: "mood-cat", label: "觉：生理感受 (Sensation - Body Signals)", style: "mood-card", words: [ {cn:"累", en:"Tired"}, {cn:"困", en:"Sleepy"}, {cn:"饿", en:"Hungry"}, {cn:"渴", en:"Thirsty"} ] }, { type: "mood-cat", label: "境：状态与环境 (Environment & States)", style: "mood-card", words: [ {cn:"冷", en:"Cold"}, {cn:"热", en:"Hot"}, {cn:"凉快", en:"Cool"}, {cn:"暖和", en:"Warm"}, {cn:"无聊", en:"Bored"}, {cn:"安静", en:"Quiet"}, {cn:"忙", en:"Busy"} ] } ] },
+            vol7: { title: "生活小物", subtitle: "Everyday Things", groups: [ { type: "things-cat", label: "有与没有 (Concepts)", style: "things-card", words: [ {cn:"有", en:"Have"}, {cn:"没有", en:"Not have"} ] }, { type: "things-cat", label: "学习与玩耍 (Learn & Play)", style: "things-card", words: [ {cn:"书", en:"Book"}, {cn:"书包", en:"Schoolbag"}, {cn:"铅笔", en:"Pencil"}, {cn:"橡皮", en:"Eraser"}, {cn:"玩具", en:"Toy"}, {cn:"球", en:"Ball"} ] }, { type: "things-cat", label: "日常生活 (Daily Life)", style: "things-card", words: [ {cn:"水杯", en:"Water Cup"}, {cn:"碗", en:"Bowl"}, {cn:"筷子", en:"Chopsticks"}, {cn:"勺子", en:"Spoon"}, {cn:"牙刷", en:"Toothbrush"}, {cn:"毛巾", en:"Towel"}, {cn:"香皂", en:"Soap"}, {cn:"衣服", en:"Clothes"}, {cn:"鞋子", en:"Shoes"}, {cn:"眼镜", en:"Glasses"}, {cn:"雨伞", en:"Umbrella"}, {cn:"帽子", en:"Hat"}, {cn:"遥控器", en:"Remote Control"}, {cn:"床", en:"Bed"}, {cn:"枕头", en:"Pillow"}, {cn:"沙发", en:"Sofa"}, {cn:"地毯", en:"Rug"}, {cn:"镜子", en:"Mirror"} ] } ] },
+            vol8: { title: "时间与天气", subtitle: "Time & Weather", groups: [ { type: "time-cat", label: "日常时间 (Daily Time)", style: "time-card", words: [ {cn:"早上", en:"Morning"}, {cn:"中午", en:"Noon"}, {cn:"下午", en:"Afternoon"}, {cn:"晚上", en:"Evening"}, {cn:"夜里", en:"At Night"}, {cn:"今天", en:"Today"}, {cn:"昨天", en:"Yesterday"}, {cn:"明天", en:"Tomorrow"}, {cn:"周末", en:"Weekend"}, {cn:"假期", en:"Vacation"} ] }, { type: "time-cat", label: "季节与天气 (Seasons & Weather)", style: "time-card", words: [ {cn:"春天", en:"Spring"}, {cn:"夏天", en:"Summer"}, {cn:"秋天", en:"Fall"}, {cn:"冬天", en:"Winter"}, {cn:"晴天", en:"Sunny Day"}, {cn:"下雪天", en:"Snowy Day"}, {cn:"下雨天", en:"Rainy Day"} ] }, { type: "time-cat", label: "特殊时刻 (Special Moments)", style: "time-card", words: [ {cn:"生日", en:"Birthday"}, {cn:"放学后", en:"After School"}, {cn:"睡觉前", en:"Before Bed"} ] } ] },
+            vol9: { title: "藏起来了", subtitle: "Hide and Place", groups: [ { type: "hide-cat", label: "方位与空间 (Positions)", style: "hide-card", words: [ {cn:"在……上面", en:"on"}, {cn:"在……下面", en:"under"}, {cn:"在……里面", en:"in"}, {cn:"在……中间", en:"in the middle of"}, {cn:"在……前面", en:"in front of"}, {cn:"在……后面", en:"behind"}, {cn:"在……左边", en:"on the left of"}, {cn:"在……右边", en:"on the right of"} ] }, { type: "hide-cat", label: "家具与物品 (Furniture & Items)", style: "hide-card", words: [ {cn:"书桌", en:"desk"}, {cn:"餐桌", en:"dining table"}, {cn:"椅子", en:"chair"}, {cn:"书架", en:"bookshelf"}, {cn:"衣柜", en:"wardrobe"}, {cn:"抽屉", en:"drawer"}, {cn:"箱子", en:"box"}, {cn:"篮子", en:"basket"}, {cn:"冰箱", en:"fridge"} ] }, { type: "hide-cat", label: "户外与房间 (Spaces & Outdoors)", style: "hide-card", words: [ {cn:"房间", en:"room"}, {cn:"帐篷", en:"tent"}, {cn:"沙坑", en:"sandbox"}, {cn:"大树", en:"tree"}, {cn:"狗窝", en:"doghouse"} ] } ] }
+        };
+
+        function renderAll() {
+            ['vol3', 'vol6', 'vol9'].forEach(volKey => {
+                const container = document.getElementById('container-' + volKey);
+                const data = DB[volKey];
+                let html = `
+                    <div class="vol-header">
+                        <h2>${data.title}</h2>
+                        <p>${data.subtitle}</p>
+                    </div>
+                `;
+
+                data.groups.forEach(group => {
+                    if (group.label) {
+                        html += `<div class="cat-title ${group.type}">${group.label}</div>`;
+                    } else {
+                        html += `<div style="margin-top: 15px;"></div>`; 
+                    }
+                    
+                    html += `<div class="grid-container">`;
+                    group.words.forEach(item => { 
+                        const sizeClass = item.cn.length >= 4 ? 'size-small' : 'size-big';
+                        html += `
+                        <div class="word-card ${group.style} ${sizeClass}" onclick="playAudio('${item.cn}', this)">
+                            <div class="cn-text">${item.cn}</div>
+                            <div class="en-text">${item.en}</div>
+                        </div>`; 
+                    });
+                    html += `</div>`;
+                });
+                container.innerHTML = html;
+            });
+        }
+
+        function switchVol(volKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => { 
+                btn.classList.remove('active'); 
+                if(btn.dataset.vol === volKey) btn.classList.add('active'); 
+            });
+            document.querySelectorAll('.vol-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById('container-' + volKey).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        let currentAudio = null, currentBtn = null;
+        function playAudio(word, btn) {
+            if (currentAudio) { currentAudio.pause(); currentAudio.currentTime = 0; if(currentBtn) currentBtn.classList.remove('playing'); }
+            btn.classList.add('playing'); currentBtn = btn;
+            
+            const audio = new Audio(`audio/${word}.mp3`);
+            currentAudio = audio;
+            audio.play().catch(e => { console.log("Missing: " + word); btn.classList.remove('playing'); });
+            audio.onended = () => { btn.classList.remove('playing'); currentAudio = null; };
+        }
+        
+        renderAll();
+    </script>
+</body>
+</html>
